@@ -1,4 +1,5 @@
 import 'package:flavorsph/ui/common/ui_helpers.dart';
+import 'package:flavorsph/ui/modal/register.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -40,7 +41,7 @@ class WelcomePageView extends StackedView<WelcomePageViewModel> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(bottom: 16),
                         child: Text('FlavorsPH',
                             style: TextStyle(
@@ -70,26 +71,26 @@ class WelcomePageView extends StackedView<WelcomePageViewModel> {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            // showModalBottomSheet(
-                            //   context: context,
-                            //   backgroundColor: Colors.white,
-                            //   shape: const RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.only(
-                            //           topLeft: Radius.circular(20),
-                            //           topRight: Radius.circular(20))),
-                            //   isScrollControlled: true,
-                            //   builder: (context) {
-                            //     return const RegisterModal();
-                            //   },
-                            // );
-                            viewModel.getStarted();
+                            showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20))),
+                              isScrollControlled: true,
+                              builder: (context) {
+                                return const RegisterModal();
+                              },
+                            );
+                            // viewModel.getStarted();
                           },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             backgroundColor: AppColor.primarySoft,
                           ),
-                          child: Text('Get Started',
+                          child: Text('Register',
                               style: TextStyle(
                                   color: AppColor.secondary,
                                   fontSize: 16,
@@ -132,41 +133,6 @@ class WelcomePageView extends StackedView<WelcomePageViewModel> {
                                   fontFamily: 'inter')),
                         ),
                       ),
-                      // Container(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 8),
-                      //   margin: const EdgeInsets.only(top: 32),
-                      //   child: RichText(
-                      //     textAlign: TextAlign.center,
-                      //     text: TextSpan(
-                      //       text: 'By joining Hungry, you agree to our ',
-                      //       style: TextStyle(
-                      //           color: Colors.white.withOpacity(0.6),
-                      //           height: 150 / 100),
-                      //       children: [
-                      //         TextSpan(
-                      //           text: 'Terms of service ',
-                      //           style: TextStyle(
-                      //               color: Colors.white.withOpacity(0.6),
-                      //               fontWeight: FontWeight.w700,
-                      //               height: 150 / 100),
-                      //         ),
-                      //         TextSpan(
-                      //           text: 'and ',
-                      //           style: TextStyle(
-                      //               color: Colors.white.withOpacity(0.6),
-                      //               height: 150 / 100),
-                      //         ),
-                      //         TextSpan(
-                      //           text: 'Privacy policy.',
-                      //           style: TextStyle(
-                      //               color: Colors.white.withOpacity(0.6),
-                      //               fontWeight: FontWeight.w700,
-                      //               height: 150 / 100),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   )
                 ],

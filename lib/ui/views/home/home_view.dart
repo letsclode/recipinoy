@@ -1,3 +1,4 @@
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
@@ -16,6 +17,25 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<ProfileScreen>(
+                  builder: (context) => ProfileScreen(
+                    appBar: AppBar(),
+                  ),
+                ),
+              );
+            },
+          ),
+          // const SignOutButton(),
+        ],
         backgroundColor: AppColor.primary,
         elevation: 0,
         centerTitle: true,
@@ -26,7 +46,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 fontWeight: FontWeight.w400,
                 fontSize: 16)),
       ),
-      body: Expanded(
+      body: Container(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Column(
