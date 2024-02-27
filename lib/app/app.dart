@@ -8,6 +8,7 @@ import 'package:flavorsph/ui/views/login/login_view.dart';
 import 'package:flavorsph/ui/views/welcome_page/welcome_page_view.dart';
 import 'package:flavorsph/ui/views/recipe_list/recipe_list_view.dart';
 import 'package:flavorsph/services/recipe_generator_service.dart';
+import 'package:flavorsph/services/firestore_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -24,6 +25,7 @@ import 'package:flavorsph/services/recipe_generator_service.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: RecipeGeneratorService),
+    LazySingleton(classType: FirestoreService),
 // @stacked-service
   ],
   bottomsheets: [

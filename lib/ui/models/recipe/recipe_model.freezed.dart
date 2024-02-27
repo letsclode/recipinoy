@@ -23,10 +23,10 @@ mixin _$RecipeModel {
   String? get title => throw _privateConstructorUsedError;
   String? get photo => throw _privateConstructorUsedError;
   String? get time => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
   double? get similarity => throw _privateConstructorUsedError;
-  List<IngredientModel>? get ingridients => throw _privateConstructorUsedError;
-  List<TutorialStepModel>? get tutorial => throw _privateConstructorUsedError;
+  List<String>? get sliceIngre => throw _privateConstructorUsedError;
+  List<String>? get sliceIns => throw _privateConstructorUsedError;
+  List<String>? get ingredients => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,10 +44,10 @@ abstract class $RecipeModelCopyWith<$Res> {
       {String? title,
       String? photo,
       String? time,
-      String? description,
       double? similarity,
-      List<IngredientModel>? ingridients,
-      List<TutorialStepModel>? tutorial});
+      List<String>? sliceIngre,
+      List<String>? sliceIns,
+      List<String>? ingredients});
 }
 
 /// @nodoc
@@ -66,10 +66,10 @@ class _$RecipeModelCopyWithImpl<$Res, $Val extends RecipeModel>
     Object? title = freezed,
     Object? photo = freezed,
     Object? time = freezed,
-    Object? description = freezed,
     Object? similarity = freezed,
-    Object? ingridients = freezed,
-    Object? tutorial = freezed,
+    Object? sliceIngre = freezed,
+    Object? sliceIns = freezed,
+    Object? ingredients = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
@@ -84,22 +84,22 @@ class _$RecipeModelCopyWithImpl<$Res, $Val extends RecipeModel>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       similarity: freezed == similarity
           ? _value.similarity
           : similarity // ignore: cast_nullable_to_non_nullable
               as double?,
-      ingridients: freezed == ingridients
-          ? _value.ingridients
-          : ingridients // ignore: cast_nullable_to_non_nullable
-              as List<IngredientModel>?,
-      tutorial: freezed == tutorial
-          ? _value.tutorial
-          : tutorial // ignore: cast_nullable_to_non_nullable
-              as List<TutorialStepModel>?,
+      sliceIngre: freezed == sliceIngre
+          ? _value.sliceIngre
+          : sliceIngre // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      sliceIns: freezed == sliceIns
+          ? _value.sliceIns
+          : sliceIns // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      ingredients: freezed == ingredients
+          ? _value.ingredients
+          : ingredients // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -116,10 +116,10 @@ abstract class _$$RecipeModelImplCopyWith<$Res>
       {String? title,
       String? photo,
       String? time,
-      String? description,
       double? similarity,
-      List<IngredientModel>? ingridients,
-      List<TutorialStepModel>? tutorial});
+      List<String>? sliceIngre,
+      List<String>? sliceIns,
+      List<String>? ingredients});
 }
 
 /// @nodoc
@@ -136,10 +136,10 @@ class __$$RecipeModelImplCopyWithImpl<$Res>
     Object? title = freezed,
     Object? photo = freezed,
     Object? time = freezed,
-    Object? description = freezed,
     Object? similarity = freezed,
-    Object? ingridients = freezed,
-    Object? tutorial = freezed,
+    Object? sliceIngre = freezed,
+    Object? sliceIns = freezed,
+    Object? ingredients = freezed,
   }) {
     return _then(_$RecipeModelImpl(
       freezed == title
@@ -154,39 +154,40 @@ class __$$RecipeModelImplCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String?,
-      freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       freezed == similarity
           ? _value.similarity
           : similarity // ignore: cast_nullable_to_non_nullable
               as double?,
-      freezed == ingridients
-          ? _value._ingridients
-          : ingridients // ignore: cast_nullable_to_non_nullable
-              as List<IngredientModel>?,
-      freezed == tutorial
-          ? _value._tutorial
-          : tutorial // ignore: cast_nullable_to_non_nullable
-              as List<TutorialStepModel>?,
+      freezed == sliceIngre
+          ? _value._sliceIngre
+          : sliceIngre // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      freezed == sliceIns
+          ? _value._sliceIns
+          : sliceIns // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      freezed == ingredients
+          ? _value._ingredients
+          : ingredients // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$RecipeModelImpl with DiagnosticableTreeMixin implements _RecipeModel {
+class _$RecipeModelImpl implements _RecipeModel {
   const _$RecipeModelImpl(
       this.title,
       this.photo,
       this.time,
-      this.description,
       this.similarity,
-      final List<IngredientModel>? ingridients,
-      final List<TutorialStepModel>? tutorial)
-      : _ingridients = ingridients,
-        _tutorial = tutorial;
+      final List<String>? sliceIngre,
+      final List<String>? sliceIns,
+      final List<String>? ingredients)
+      : _sliceIngre = sliceIngre,
+        _sliceIns = sliceIns,
+        _ingredients = ingredients;
 
   factory _$RecipeModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RecipeModelImplFromJson(json);
@@ -198,46 +199,40 @@ class _$RecipeModelImpl with DiagnosticableTreeMixin implements _RecipeModel {
   @override
   final String? time;
   @override
-  final String? description;
-  @override
   final double? similarity;
-  final List<IngredientModel>? _ingridients;
+  final List<String>? _sliceIngre;
   @override
-  List<IngredientModel>? get ingridients {
-    final value = _ingridients;
+  List<String>? get sliceIngre {
+    final value = _sliceIngre;
     if (value == null) return null;
-    if (_ingridients is EqualUnmodifiableListView) return _ingridients;
+    if (_sliceIngre is EqualUnmodifiableListView) return _sliceIngre;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
-  final List<TutorialStepModel>? _tutorial;
+  final List<String>? _sliceIns;
   @override
-  List<TutorialStepModel>? get tutorial {
-    final value = _tutorial;
+  List<String>? get sliceIns {
+    final value = _sliceIns;
     if (value == null) return null;
-    if (_tutorial is EqualUnmodifiableListView) return _tutorial;
+    if (_sliceIns is EqualUnmodifiableListView) return _sliceIns;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _ingredients;
+  @override
+  List<String>? get ingredients {
+    final value = _ingredients;
+    if (value == null) return null;
+    if (_ingredients is EqualUnmodifiableListView) return _ingredients;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RecipeModel(title: $title, photo: $photo, time: $time, description: $description, similarity: $similarity, ingridients: $ingridients, tutorial: $tutorial)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'RecipeModel'))
-      ..add(DiagnosticsProperty('title', title))
-      ..add(DiagnosticsProperty('photo', photo))
-      ..add(DiagnosticsProperty('time', time))
-      ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty('similarity', similarity))
-      ..add(DiagnosticsProperty('ingridients', ingridients))
-      ..add(DiagnosticsProperty('tutorial', tutorial));
+  String toString() {
+    return 'RecipeModel(title: $title, photo: $photo, time: $time, similarity: $similarity, sliceIngre: $sliceIngre, sliceIns: $sliceIns, ingredients: $ingredients)';
   }
 
   @override
@@ -248,13 +243,13 @@ class _$RecipeModelImpl with DiagnosticableTreeMixin implements _RecipeModel {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.photo, photo) || other.photo == photo) &&
             (identical(other.time, time) || other.time == time) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.similarity, similarity) ||
                 other.similarity == similarity) &&
             const DeepCollectionEquality()
-                .equals(other._ingridients, _ingridients) &&
-            const DeepCollectionEquality().equals(other._tutorial, _tutorial));
+                .equals(other._sliceIngre, _sliceIngre) &&
+            const DeepCollectionEquality().equals(other._sliceIns, _sliceIns) &&
+            const DeepCollectionEquality()
+                .equals(other._ingredients, _ingredients));
   }
 
   @JsonKey(ignore: true)
@@ -264,10 +259,10 @@ class _$RecipeModelImpl with DiagnosticableTreeMixin implements _RecipeModel {
       title,
       photo,
       time,
-      description,
       similarity,
-      const DeepCollectionEquality().hash(_ingridients),
-      const DeepCollectionEquality().hash(_tutorial));
+      const DeepCollectionEquality().hash(_sliceIngre),
+      const DeepCollectionEquality().hash(_sliceIns),
+      const DeepCollectionEquality().hash(_ingredients));
 
   @JsonKey(ignore: true)
   @override
@@ -288,10 +283,10 @@ abstract class _RecipeModel implements RecipeModel {
       final String? title,
       final String? photo,
       final String? time,
-      final String? description,
       final double? similarity,
-      final List<IngredientModel>? ingridients,
-      final List<TutorialStepModel>? tutorial) = _$RecipeModelImpl;
+      final List<String>? sliceIngre,
+      final List<String>? sliceIns,
+      final List<String>? ingredients) = _$RecipeModelImpl;
 
   factory _RecipeModel.fromJson(Map<String, dynamic> json) =
       _$RecipeModelImpl.fromJson;
@@ -303,13 +298,13 @@ abstract class _RecipeModel implements RecipeModel {
   @override
   String? get time;
   @override
-  String? get description;
-  @override
   double? get similarity;
   @override
-  List<IngredientModel>? get ingridients;
+  List<String>? get sliceIngre;
   @override
-  List<TutorialStepModel>? get tutorial;
+  List<String>? get sliceIns;
+  @override
+  List<String>? get ingredients;
   @override
   @JsonKey(ignore: true)
   _$$RecipeModelImplCopyWith<_$RecipeModelImpl> get copyWith =>

@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:flavorsph/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flavorsph/services/recipe_generator_service.dart';
+import 'package:flavorsph/services/firestore_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -12,6 +13,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<RecipeGeneratorService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<FirestoreService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -19,6 +21,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterRecipeGeneratorService();
+  getAndRegisterFirestoreService();
 // @stacked-mock-register
 }
 
@@ -76,6 +79,13 @@ MockRecipeGeneratorService getAndRegisterRecipeGeneratorService() {
   _removeRegistrationIfExists<RecipeGeneratorService>();
   final service = MockRecipeGeneratorService();
   locator.registerSingleton<RecipeGeneratorService>(service);
+  return service;
+}
+
+MockFirestoreService getAndRegisterFirestoreService() {
+  _removeRegistrationIfExists<FirestoreService>();
+  final service = MockFirestoreService();
+  locator.registerSingleton<FirestoreService>(service);
   return service;
 }
 // @stacked-mock-create

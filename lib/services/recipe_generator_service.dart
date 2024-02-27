@@ -1,25 +1,32 @@
 import 'dart:math';
 
+import 'package:flavorsph/app/app.locator.dart';
+import 'package:flavorsph/services/firestore_service.dart';
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 
-import '../ui/models/ingredient/ingredient_model.dart';
 import '../ui/views/home/cosine_algo.dart';
 
 class RecipeGeneratorService {
-  final filipinoCuisineData = FilipinoCuisineData();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
+
+  Future fetchRecipes() async {
+    return await _firestoreService.getRecipes();
+  }
+
   Future<List<RecipeModel>> generate(
       {required List<String> inputIngredients}) async {
     final cosineSimilarity = CosineSimilarity();
     var rankings = <MapEntry<String, double>>[];
 
+    List<RecipeModel> filipinoCuisineData = await fetchRecipes();
+
+    print(filipinoCuisineData);
+
     // Calculate similarity for each cuisine and store the results in rankings
-    for (RecipeModel cuisine in filipinoCuisineData.getAllRecipes()) {
-      final List<IngredientModel> cuisineIngredients =
-          filipinoCuisineData.getIngredients(recipeModel: cuisine);
-      final similarity = cosineSimilarity.calculate(
-          inputIngredients,
-          cuisineIngredients.map((e) => e.name!).toList(),
-          filipinoCuisineData.getAllRecipes());
+    for (RecipeModel cuisine in filipinoCuisineData) {
+      List<String> cuisineIngredients = cuisine.ingredients!;
+      final similarity = cosineSimilarity.calculate(inputIngredients,
+          cuisineIngredients.map((e) => e).toList(), filipinoCuisineData);
       rankings.add(MapEntry(cuisine.title!, similarity));
     }
 
@@ -58,7 +65,6 @@ class RecipeGeneratorService {
     } // Assuming max value is 10
 
     List<RecipeModel> finaldata = filipinoCuisineData
-        .getAllRecipes()
         .where((element) => rankingKeys.contains(element.title))
         .map((e) {
       return e.copyWith(

@@ -43,6 +43,7 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void goToGeneratePage() {
-    _navigationService.navigateToRecipeListView(ingredients: ingredients);
+    _navigationService.navigateToRecipeListView(
+        ingredientsFromUser: ingredients);
   }
 }

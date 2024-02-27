@@ -87,8 +87,8 @@ class StackedRouter extends _i1.RouterBase {
     _i6.RecipeListView: (data) {
       final args = data.getArgs<RecipeListViewArguments>(nullOk: false);
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i6.RecipeListView(key: args.key, ingredients: args.ingredients),
+        builder: (context) => _i6.RecipeListView(
+            key: args.key, ingredientsFromUser: args.ingredientsFromUser),
         settings: data,
       );
     },
@@ -104,27 +104,27 @@ class StackedRouter extends _i1.RouterBase {
 class RecipeListViewArguments {
   const RecipeListViewArguments({
     this.key,
-    required this.ingredients,
+    required this.ingredientsFromUser,
   });
 
   final _i7.Key? key;
 
-  final List<String> ingredients;
+  final List<String> ingredientsFromUser;
 
   @override
   String toString() {
-    return '{"key": "$key", "ingredients": "$ingredients"}';
+    return '{"key": "$key", "ingredientsFromUser": "$ingredientsFromUser"}';
   }
 
   @override
   bool operator ==(covariant RecipeListViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.ingredients == ingredients;
+    return other.key == key && other.ingredientsFromUser == ingredientsFromUser;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ ingredients.hashCode;
+    return key.hashCode ^ ingredientsFromUser.hashCode;
   }
 }
 
@@ -187,7 +187,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
 
   Future<dynamic> navigateToRecipeListView({
     _i7.Key? key,
-    required List<String> ingredients,
+    required List<String> ingredientsFromUser,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -195,7 +195,8 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.recipeListView,
-        arguments: RecipeListViewArguments(key: key, ingredients: ingredients),
+        arguments: RecipeListViewArguments(
+            key: key, ingredientsFromUser: ingredientsFromUser),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -260,7 +261,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
 
   Future<dynamic> replaceWithRecipeListView({
     _i7.Key? key,
-    required List<String> ingredients,
+    required List<String> ingredientsFromUser,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -268,7 +269,8 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.recipeListView,
-        arguments: RecipeListViewArguments(key: key, ingredients: ingredients),
+        arguments: RecipeListViewArguments(
+            key: key, ingredientsFromUser: ingredientsFromUser),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

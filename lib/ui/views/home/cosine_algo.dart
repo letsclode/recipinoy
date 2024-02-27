@@ -1,7 +1,9 @@
 import 'dart:math';
 
-import 'package:flavorsph/ui/models/ingredient/ingredient_model.dart';
+import 'package:flavorsph/app/app.locator.dart';
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
+
+import '../../../services/firestore_service.dart';
 
 class CosineSimilarity {
   double calculate(List<String> userIngredients, List<String> recipeIngredients,
@@ -79,8 +81,8 @@ class CosineSimilarity {
     Map<String, double> idf = {};
 
     for (RecipeModel recipe in allRecipes) {
-      List<String> processeduniqueIngredients = _preprocessIngredients(
-          recipe.ingridients!.map((e) => e.name!).toList());
+      List<String> processeduniqueIngredients =
+          _preprocessIngredients(recipe.ingredients!.map((e) => e).toList());
 
       Set<String> uniqueIngredients = processeduniqueIngredients.toSet();
 
@@ -116,217 +118,14 @@ class CosineSimilarity {
 }
 
 class FilipinoCuisineData {
-  var featuredRecipeRawData = [
-    {
-      'title': 'Green Leafy Vegetable Dish.',
-      'photo': 'assets/images/featured2.jpg',
-      'time': '25 min',
-      'description':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'ingridients': [
-        {
-          'name': 'Spinach',
-          'size': '250 g',
-        },
-        {
-          'name': 'Chili',
-          'size': '50 g',
-        },
-      ],
-      'tutorial': [
-        {
-          'step': '1. Tuangkan Air.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '2. Masukkan Mie.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '3. Cuci Piringnya.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '4. Tambahkan Nasi.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '5. Buang semua isi piring.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-      ],
-    },
-    {
-      'title': 'Healthy Vege Green Egg.',
-      'photo': 'assets/images/list1.jpg',
-      'time': '25 min',
-      'description':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'ingridients': [
-        {
-          'name': 'Noodles',
-          'size': '1000 g',
-        },
-        {
-          'name': 'pepper',
-          'size': '50 g',
-        },
-        {
-          'name': 'Chocolatte',
-          'size': '1000 g',
-        },
-        {
-          'name': 'Brocolli',
-          'size': '150 g',
-        }
-      ],
-      'tutorial': [
-        {
-          'step': '1. Tuangkan Air.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '2. Masukkan Mie.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '3. Cuci Piringnya.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '4. Tambahkan Nasi.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '5. Buang semua isi piring.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-      ],
-    },
-    {
-      'title': 'Healthy Vege Green Egg2.',
-      'photo': 'assets/images/list1.jpg',
-      'time': '25 min',
-      'description':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'ingridients': [
-        {
-          'name': 'Noodles',
-          'size': '1000 g',
-        },
-        {
-          'name': 'pepper',
-          'size': '50 g',
-        },
-        {
-          'name': 'water',
-          'size': '1000 g',
-        },
-        {
-          'name': 'Brocolli',
-          'size': '150 g',
-        }
-      ],
-      'tutorial': [
-        {
-          'step': '1. Tuangkan Air.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '2. Masukkan Mie.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '3. Cuci Piringnya.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '4. Tambahkan Nasi.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '5. Buang semua isi piring.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-      ],
-    },
-    {
-      'title': 'Breakfast Delimenu.',
-      'photo': 'assets/images/list3.jpg',
-      'time': '32 min',
-      'description':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'ingridients': [
-        {
-          'name': 'pork',
-          'size': '1000 g',
-        },
-        {
-          'name': 'spinach',
-          'size': '50 g',
-        },
-        {
-          'name': 'Chili',
-          'size': '50 g',
-        },
-      ],
-      'tutorial': [
-        {
-          'step': '1. Tuangkan Air.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '2. Masukkan Mie.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '3. Cuci Piringnya.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '4. Tambahkan Nasi.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-        {
-          'step': '5. Buang semua isi piring.',
-          'description':
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        },
-      ],
-    }
-  ];
+  final FirestoreService _firestoreService = locator<FirestoreService>();
 
-  List<RecipeModel> getAllRecipes() {
-    final data =
-        featuredRecipeRawData.map((e) => RecipeModel.fromJson(e)).toList();
-
-    print(data);
-
-    return data;
+  Future<List<RecipeModel>> getAllRecipes() async {
+    return await _firestoreService.getRecipes();
   }
 
-  List<IngredientModel> getIngredients({required RecipeModel recipeModel}) {
-    return getAllRecipes()
-        .firstWhere((element) => element == recipeModel)
-        .ingridients!;
+  Future<List<String>> getIngredients({required RecipeModel recipeModel}) {
+    return getAllRecipes().then((value) =>
+        value.firstWhere((element) => element == recipeModel).ingredients!);
   }
 }

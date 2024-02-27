@@ -288,8 +288,8 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
                         itemCount: widget.data.ingridients!
-                            .where((element) => widget.availableIngredients
-                                .contains(element.name))
+                            .where((element) =>
+                                widget.availableIngredients.contains(element))
                             .toList()
                             .length,
                         physics: const NeverScrollableScrollPhysics(),
@@ -297,7 +297,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                           return IngridientTile(
                             data: widget.data.ingridients!
                                 .where((element) => widget.availableIngredients
-                                    .contains(element.name))
+                                    .contains(element))
                                 .toList()[index],
                           );
                         },
@@ -315,8 +315,8 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
                         itemCount: widget.data.ingridients!
-                            .where((element) => !widget.availableIngredients
-                                .contains(element.name))
+                            .where((element) =>
+                                !widget.availableIngredients.contains(element))
                             .toList()
                             .length,
                         physics: const NeverScrollableScrollPhysics(),
@@ -324,7 +324,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                           return IngridientTile(
                             data: widget.data.ingridients!
                                 .where((element) => !widget.availableIngredients
-                                    .contains(element.name))
+                                    .contains(element))
                                 .toList()[index],
                           );
                         },

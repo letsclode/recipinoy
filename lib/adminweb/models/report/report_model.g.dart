@@ -6,8 +6,8 @@ part of 'report_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ReportModel _$$_ReportModelFromJson(Map<String, dynamic> json) =>
-    _$_ReportModel(
+_$ReportModelImpl _$$ReportModelImplFromJson(Map<String, dynamic> json) =>
+    _$ReportModelImpl(
       id: json['id'] as String,
       title: json['title'] as String,
       userId: json['userId'] as String,
@@ -37,7 +37,7 @@ _$_ReportModel _$$_ReportModelFromJson(Map<String, dynamic> json) =>
       position: json['position'],
     );
 
-Map<String, dynamic> _$$_ReportModelToJson(_$_ReportModel instance) =>
+Map<String, dynamic> _$$ReportModelImplToJson(_$ReportModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

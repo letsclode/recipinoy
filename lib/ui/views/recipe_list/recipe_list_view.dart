@@ -6,8 +6,8 @@ import '../../widgets/recipe_tile.dart';
 import 'recipe_list_viewmodel.dart';
 
 class RecipeListView extends StackedView<RecipeListViewModel> {
-  final List<String> ingredients;
-  const RecipeListView({super.key, required this.ingredients});
+  final List<String> ingredientsFromUser;
+  const RecipeListView({super.key, required this.ingredientsFromUser});
 
   @override
   Widget builder(
@@ -33,7 +33,7 @@ class RecipeListView extends StackedView<RecipeListViewModel> {
               ),
             ),
             FutureBuilder<List<RecipeModel>>(
-                future: viewModel.generateRecipe(ingredients: ingredients),
+                future: viewModel.fetchRecipes(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -57,7 +57,7 @@ class RecipeListView extends StackedView<RecipeListViewModel> {
                       itemBuilder: (context, index) {
                         return RecipeTile(
                           data: snapshot.data![index],
-                          availableIngredients: ingredients,
+                          availableIngredients: ingredientsFromUser,
                         );
                       },
                     ),
@@ -74,4 +74,11 @@ class RecipeListView extends StackedView<RecipeListViewModel> {
     BuildContext context,
   ) =>
       RecipeListViewModel();
+
+  @override
+  void onModelReady(RecipeListViewModel viewModel) {
+    // TODO: implement onModelReady
+    // viewModel.fetchPosts();
+    super.onViewModelReady(viewModel);
+  }
 }

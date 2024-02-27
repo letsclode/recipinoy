@@ -6,14 +6,14 @@ part of 'update_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UpdateModel _$$_UpdateModelFromJson(Map<String, dynamic> json) =>
-    _$_UpdateModel(
+_$UpdateModelImpl _$$UpdateModelImplFromJson(Map<String, dynamic> json) =>
+    _$UpdateModelImpl(
       description: json['description'] as String,
       image: json['image'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_UpdateModelToJson(_$_UpdateModel instance) =>
+Map<String, dynamic> _$$UpdateModelImplToJson(_$UpdateModelImpl instance) =>
     <String, dynamic>{
       'description': instance.description,
       'image': instance.image,

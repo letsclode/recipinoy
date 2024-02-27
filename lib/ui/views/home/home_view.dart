@@ -118,20 +118,9 @@ class HomeView extends StackedView<HomeViewModel> {
                               ),
                             ),
                           ),
-                          // Filter Button
+
                           GestureDetector(
                             onTap: () {
-                              // showModalBottomSheet(
-                              //     context: context,
-                              //     backgroundColor: Colors.white,
-                              //     shape: const RoundedRectangleBorder(
-                              //         borderRadius: BorderRadius.only(
-                              //             topLeft: Radius.circular(20),
-                              //             topRight: Radius.circular(20))),
-                              //     builder: (context) {
-                              //       return const SearchFilterModal();
-                              //     });
-
                               viewModel.addIngredient(context: context);
                             },
                             child: Container(
@@ -148,47 +137,9 @@ class HomeView extends StackedView<HomeViewModel> {
                         ],
                       ),
                     ),
-                    // Search Keyword Recommendation
-                    // Container(
-                    //   height: 60,
-                    //   margin: const EdgeInsets.only(top: 8),
-                    //   child: ListView.separated(
-                    //     shrinkWrap: true,
-                    //     scrollDirection: Axis.horizontal,
-                    //     physics: const BouncingScrollPhysics(),
-                    //     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    //     itemCount: popularRecipeKeyword.length,
-                    //     separatorBuilder: (context, index) {
-                    //       return const SizedBox(width: 8);
-                    //     },
-                    //     itemBuilder: (context, index) {
-                    //       return Container(
-                    //         alignment: Alignment.topCenter,
-                    //         child: TextButton(
-                    //           onPressed: () {
-                    //             viewModel.searchInputController.text =
-                    //                 popularRecipeKeyword[index];
-                    //           },
-                    //           style: OutlinedButton.styleFrom(
-                    //             side: BorderSide(
-                    //                 color: Colors.white.withOpacity(0.15),
-                    //                 width: 1),
-                    //           ),
-                    //           child: Text(
-                    //             popularRecipeKeyword[index],
-                    //             style: TextStyle(
-                    //                 color: Colors.white.withOpacity(0.7),
-                    //                 fontWeight: FontWeight.w400),
-                    //           ),
-                    //         ),
-                    //       );
-                    //     },
-                    //   ),
-                    // )
                   ],
                 ),
               ),
-              // Section 2 - Search Result
               Expanded(
                 child: viewModel.ingredients.length == 0
                     ? Center(
@@ -224,7 +175,7 @@ class HomeView extends StackedView<HomeViewModel> {
                   onPressed: viewModel.ingredientsEmpty
                       ? null
                       : viewModel.goToGeneratePage,
-                  child: Text("Generate Recipe's"))
+                  child: Text("Generate"))
             ],
           ),
         ),

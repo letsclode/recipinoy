@@ -1,7 +1,4 @@
 // This file is "main.dart"
-import 'package:flavorsph/ui/models/ingredient/ingredient_model.dart';
-import 'package:flavorsph/ui/models/tutorial_step/tutorial_step_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'recipe_model.freezed.dart';
@@ -13,10 +10,10 @@ class RecipeModel with _$RecipeModel {
     String? title,
     String? photo,
     String? time,
-    String? description,
     double? similarity,
-    List<IngredientModel>? ingridients,
-    List<TutorialStepModel>? tutorial,
+    List<String>? sliceIngre,
+    List<String>? sliceIns,
+    List<String>? ingredients,
   ) = _RecipeModel;
 
   factory RecipeModel.fromJson(Map<String, Object?> json) =>

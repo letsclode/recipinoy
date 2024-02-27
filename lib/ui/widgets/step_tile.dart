@@ -1,8 +1,7 @@
-import 'package:flavorsph/ui/models/tutorial_step/tutorial_step_model.dart';
 import 'package:flutter/material.dart';
 
 class StepTile extends StatelessWidget {
-  final TutorialStepModel data;
+  final String data;
 
   const StepTile({super.key, required this.data});
 
@@ -18,26 +17,16 @@ class StepTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            data.step!,
-            style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'inter',
-                fontSize: 16,
-                fontWeight: FontWeight.w600),
-          ),
-          (data.description != null)
-              ? Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    data.description!,
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.8),
-                        fontWeight: FontWeight.w500,
-                        height: 150 / 100),
-                  ),
-                )
-              : const SizedBox(),
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: Text(
+              data,
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.8),
+                  fontWeight: FontWeight.w500,
+                  height: 150 / 100),
+            ),
+          )
         ],
       ),
     );

@@ -58,8 +58,10 @@ class _RecipeTileState extends State<RecipeTile> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.blueGrey,
+                //TODO: image from database
                 image: DecorationImage(
-                    image: AssetImage(widget.data.photo!), fit: BoxFit.cover),
+                    image: AssetImage('assets/images/dessert.jpg'),
+                    fit: BoxFit.cover),
               ),
             ),
             // Recipe Info
@@ -75,7 +77,7 @@ class _RecipeTileState extends State<RecipeTile> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 12),
                       child: Text(
-                        widget.data.title!,
+                        widget.data.title ?? '',
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontFamily: 'inter'),
                       ),
@@ -96,7 +98,7 @@ class _RecipeTileState extends State<RecipeTile> {
                         Container(
                           margin: const EdgeInsets.only(left: 5),
                           child: Text(
-                            widget.data.time!,
+                            widget.data.time ?? '',
                             style: const TextStyle(fontSize: 12),
                           ),
                         ),

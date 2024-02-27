@@ -11,14 +11,10 @@ _$RecipeModelImpl _$$RecipeModelImplFromJson(Map<String, dynamic> json) =>
       json['title'] as String?,
       json['photo'] as String?,
       json['time'] as String?,
-      json['description'] as String?,
       (json['similarity'] as num?)?.toDouble(),
-      (json['ingridients'] as List<dynamic>?)
-          ?.map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      (json['tutorial'] as List<dynamic>?)
-          ?.map((e) => TutorialStepModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['sliceIngre'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      (json['sliceIns'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      (json['ingredients'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$RecipeModelImplToJson(_$RecipeModelImpl instance) =>
@@ -26,8 +22,8 @@ Map<String, dynamic> _$$RecipeModelImplToJson(_$RecipeModelImpl instance) =>
       'title': instance.title,
       'photo': instance.photo,
       'time': instance.time,
-      'description': instance.description,
       'similarity': instance.similarity,
-      'ingridients': instance.ingridients,
-      'tutorial': instance.tutorial,
+      'sliceIngre': instance.sliceIngre,
+      'sliceIns': instance.sliceIns,
+      'ingredients': instance.ingredients,
     };

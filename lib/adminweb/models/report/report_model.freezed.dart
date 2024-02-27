@@ -12,7 +12,7 @@ part of 'report_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ReportModel _$ReportModelFromJson(Map<String, dynamic> json) {
   return _ReportModel.fromJson(json);
@@ -189,11 +189,11 @@ class _$ReportModelCopyWithImpl<$Res, $Val extends ReportModel>
 }
 
 /// @nodoc
-abstract class _$$_ReportModelCopyWith<$Res>
+abstract class _$$ReportModelImplCopyWith<$Res>
     implements $ReportModelCopyWith<$Res> {
-  factory _$$_ReportModelCopyWith(
-          _$_ReportModel value, $Res Function(_$_ReportModel) then) =
-      __$$_ReportModelCopyWithImpl<$Res>;
+  factory _$$ReportModelImplCopyWith(
+          _$ReportModelImpl value, $Res Function(_$ReportModelImpl) then) =
+      __$$ReportModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -219,11 +219,11 @@ abstract class _$$_ReportModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ReportModelCopyWithImpl<$Res>
-    extends _$ReportModelCopyWithImpl<$Res, _$_ReportModel>
-    implements _$$_ReportModelCopyWith<$Res> {
-  __$$_ReportModelCopyWithImpl(
-      _$_ReportModel _value, $Res Function(_$_ReportModel) _then)
+class __$$ReportModelImplCopyWithImpl<$Res>
+    extends _$ReportModelCopyWithImpl<$Res, _$ReportModelImpl>
+    implements _$$ReportModelImplCopyWith<$Res> {
+  __$$ReportModelImplCopyWithImpl(
+      _$ReportModelImpl _value, $Res Function(_$ReportModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -249,7 +249,7 @@ class __$$_ReportModelCopyWithImpl<$Res>
     Object? ratings = freezed,
     Object? position = freezed,
   }) {
-    return _then(_$_ReportModel(
+    return _then(_$ReportModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -332,8 +332,8 @@ class __$$_ReportModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ReportModel implements _ReportModel {
-  _$_ReportModel(
+class _$ReportModelImpl implements _ReportModel {
+  _$ReportModelImpl(
       {required this.id,
       required this.title,
       required this.userId,
@@ -355,8 +355,8 @@ class _$_ReportModel implements _ReportModel {
       required this.position})
       : _updates = updates;
 
-  factory _$_ReportModel.fromJson(Map<String, dynamic> json) =>
-      _$$_ReportModelFromJson(json);
+  factory _$ReportModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReportModelImplFromJson(json);
 
   @override
   final String id;
@@ -409,10 +409,10 @@ class _$_ReportModel implements _ReportModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReportModel &&
+            other is _$ReportModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -471,12 +471,12 @@ class _$_ReportModel implements _ReportModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReportModelCopyWith<_$_ReportModel> get copyWith =>
-      __$$_ReportModelCopyWithImpl<_$_ReportModel>(this, _$identity);
+  _$$ReportModelImplCopyWith<_$ReportModelImpl> get copyWith =>
+      __$$ReportModelImplCopyWithImpl<_$ReportModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReportModelToJson(
+    return _$$ReportModelImplToJson(
       this,
     );
   }
@@ -502,10 +502,10 @@ abstract class _ReportModel implements ReportModel {
       required final String address,
       required final String landmark,
       final double? ratings,
-      required final dynamic position}) = _$_ReportModel;
+      required final dynamic position}) = _$ReportModelImpl;
 
   factory _ReportModel.fromJson(Map<String, dynamic> json) =
-      _$_ReportModel.fromJson;
+      _$ReportModelImpl.fromJson;
 
   @override
   String get id;
@@ -547,6 +547,6 @@ abstract class _ReportModel implements ReportModel {
   dynamic get position;
   @override
   @JsonKey(ignore: true)
-  _$$_ReportModelCopyWith<_$_ReportModel> get copyWith =>
+  _$$ReportModelImplCopyWith<_$ReportModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,8 +6,8 @@ part of 'feedback_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_FeedbackModel _$$_FeedbackModelFromJson(Map<String, dynamic> json) =>
-    _$_FeedbackModel(
+_$FeedbackModelImpl _$$FeedbackModelImplFromJson(Map<String, dynamic> json) =>
+    _$FeedbackModelImpl(
       id: json['id'] as String,
       userId: json['userId'] as String,
       reportId: json['reportId'] as String,
@@ -17,7 +17,7 @@ _$_FeedbackModel _$$_FeedbackModelFromJson(Map<String, dynamic> json) =>
       ratings: (json['ratings'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$_FeedbackModelToJson(_$_FeedbackModel instance) =>
+Map<String, dynamic> _$$FeedbackModelImplToJson(_$FeedbackModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userId': instance.userId,

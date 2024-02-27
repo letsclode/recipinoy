@@ -1,8 +1,7 @@
-import 'package:flavorsph/ui/models/ingredient/ingredient_model.dart';
 import 'package:flutter/material.dart';
 
 class IngridientTile extends StatelessWidget {
-  final IngredientModel data;
+  final String data;
   const IngridientTile({super.key, required this.data});
 
   @override
@@ -19,20 +18,9 @@ class IngridientTile extends StatelessWidget {
           Flexible(
             flex: 9,
             child: Text(
-              data.name!,
+              data,
               style: const TextStyle(
                   fontSize: 14, fontWeight: FontWeight.w600, height: 150 / 100),
-            ),
-          ),
-          Flexible(
-            flex: 3,
-            child: Text(
-              data.size!,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'inter',
-                  color: Colors.grey[600]),
             ),
           ),
         ],

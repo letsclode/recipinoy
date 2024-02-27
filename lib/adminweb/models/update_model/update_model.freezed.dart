@@ -12,7 +12,7 @@ part of 'update_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UpdateModel _$UpdateModelFromJson(Map<String, dynamic> json) {
   return _UpdateModel.fromJson(json);
@@ -74,22 +74,22 @@ class _$UpdateModelCopyWithImpl<$Res, $Val extends UpdateModel>
 }
 
 /// @nodoc
-abstract class _$$_UpdateModelCopyWith<$Res>
+abstract class _$$UpdateModelImplCopyWith<$Res>
     implements $UpdateModelCopyWith<$Res> {
-  factory _$$_UpdateModelCopyWith(
-          _$_UpdateModel value, $Res Function(_$_UpdateModel) then) =
-      __$$_UpdateModelCopyWithImpl<$Res>;
+  factory _$$UpdateModelImplCopyWith(
+          _$UpdateModelImpl value, $Res Function(_$UpdateModelImpl) then) =
+      __$$UpdateModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String description, String image, DateTime createdAt});
 }
 
 /// @nodoc
-class __$$_UpdateModelCopyWithImpl<$Res>
-    extends _$UpdateModelCopyWithImpl<$Res, _$_UpdateModel>
-    implements _$$_UpdateModelCopyWith<$Res> {
-  __$$_UpdateModelCopyWithImpl(
-      _$_UpdateModel _value, $Res Function(_$_UpdateModel) _then)
+class __$$UpdateModelImplCopyWithImpl<$Res>
+    extends _$UpdateModelCopyWithImpl<$Res, _$UpdateModelImpl>
+    implements _$$UpdateModelImplCopyWith<$Res> {
+  __$$UpdateModelImplCopyWithImpl(
+      _$UpdateModelImpl _value, $Res Function(_$UpdateModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_UpdateModelCopyWithImpl<$Res>
     Object? image = null,
     Object? createdAt = null,
   }) {
-    return _then(_$_UpdateModel(
+    return _then(_$UpdateModelImpl(
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -118,14 +118,14 @@ class __$$_UpdateModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UpdateModel implements _UpdateModel {
-  _$_UpdateModel(
+class _$UpdateModelImpl implements _UpdateModel {
+  _$UpdateModelImpl(
       {required this.description,
       required this.image,
       required this.createdAt});
 
-  factory _$_UpdateModel.fromJson(Map<String, dynamic> json) =>
-      _$$_UpdateModelFromJson(json);
+  factory _$UpdateModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UpdateModelImplFromJson(json);
 
   @override
   final String description;
@@ -140,10 +140,10 @@ class _$_UpdateModel implements _UpdateModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateModel &&
+            other is _$UpdateModelImpl &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.image, image) || other.image == image) &&
@@ -158,12 +158,12 @@ class _$_UpdateModel implements _UpdateModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateModelCopyWith<_$_UpdateModel> get copyWith =>
-      __$$_UpdateModelCopyWithImpl<_$_UpdateModel>(this, _$identity);
+  _$$UpdateModelImplCopyWith<_$UpdateModelImpl> get copyWith =>
+      __$$UpdateModelImplCopyWithImpl<_$UpdateModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UpdateModelToJson(
+    return _$$UpdateModelImplToJson(
       this,
     );
   }
@@ -173,10 +173,10 @@ abstract class _UpdateModel implements UpdateModel {
   factory _UpdateModel(
       {required final String description,
       required final String image,
-      required final DateTime createdAt}) = _$_UpdateModel;
+      required final DateTime createdAt}) = _$UpdateModelImpl;
 
   factory _UpdateModel.fromJson(Map<String, dynamic> json) =
-      _$_UpdateModel.fromJson;
+      _$UpdateModelImpl.fromJson;
 
   @override
   String get description;
@@ -186,6 +186,6 @@ abstract class _UpdateModel implements UpdateModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$$_UpdateModelCopyWith<_$_UpdateModel> get copyWith =>
+  _$$UpdateModelImplCopyWith<_$UpdateModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
