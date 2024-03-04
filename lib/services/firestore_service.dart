@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
-import 'package:flutter/services.dart';
 
 class FirestoreService {
   final CollectionReference _recipesCollectionReference =
@@ -15,22 +14,21 @@ class FirestoreService {
     }
   }
 
-  Future getRecipes() async {
+  Future<List<RecipeModel>> getRecipes() async {
     try {
       var recipeDocuments = await _recipesCollectionReference.get();
       if (recipeDocuments.docs.isNotEmpty) {
-        return recipeDocuments.docs
+        var data = recipeDocuments.docs
             .map((snapshot) =>
                 RecipeModel.fromJson(snapshot.data() as Map<String, Object?>))
             .where((mappedItem) => mappedItem.title != null)
             .toList();
+
+        return data;
       }
     } catch (e) {
-      if (e is PlatformException) {
-        return e.message;
-      }
-
-      return e.toString();
+      print(e);
     }
+    return [];
   }
 }

@@ -20,13 +20,12 @@ RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RecipeModel {
-  String? get title => throw _privateConstructorUsedError;
-  String? get photo => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError; // String? photo,
+// String? description,
   String? get time => throw _privateConstructorUsedError;
   double? get similarity => throw _privateConstructorUsedError;
   List<String>? get sliceIngre => throw _privateConstructorUsedError;
   List<String>? get sliceIns => throw _privateConstructorUsedError;
-  List<String>? get ingredients => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,12 +41,10 @@ abstract class $RecipeModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? title,
-      String? photo,
       String? time,
       double? similarity,
       List<String>? sliceIngre,
-      List<String>? sliceIns,
-      List<String>? ingredients});
+      List<String>? sliceIns});
 }
 
 /// @nodoc
@@ -64,21 +61,15 @@ class _$RecipeModelCopyWithImpl<$Res, $Val extends RecipeModel>
   @override
   $Res call({
     Object? title = freezed,
-    Object? photo = freezed,
     Object? time = freezed,
     Object? similarity = freezed,
     Object? sliceIngre = freezed,
     Object? sliceIns = freezed,
-    Object? ingredients = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      photo: freezed == photo
-          ? _value.photo
-          : photo // ignore: cast_nullable_to_non_nullable
               as String?,
       time: freezed == time
           ? _value.time
@@ -96,10 +87,6 @@ class _$RecipeModelCopyWithImpl<$Res, $Val extends RecipeModel>
           ? _value.sliceIns
           : sliceIns // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      ingredients: freezed == ingredients
-          ? _value.ingredients
-          : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ) as $Val);
   }
 }
@@ -114,12 +101,10 @@ abstract class _$$RecipeModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? title,
-      String? photo,
       String? time,
       double? similarity,
       List<String>? sliceIngre,
-      List<String>? sliceIns,
-      List<String>? ingredients});
+      List<String>? sliceIns});
 }
 
 /// @nodoc
@@ -134,21 +119,15 @@ class __$$RecipeModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = freezed,
-    Object? photo = freezed,
     Object? time = freezed,
     Object? similarity = freezed,
     Object? sliceIngre = freezed,
     Object? sliceIns = freezed,
-    Object? ingredients = freezed,
   }) {
     return _then(_$RecipeModelImpl(
       freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      freezed == photo
-          ? _value.photo
-          : photo // ignore: cast_nullable_to_non_nullable
               as String?,
       freezed == time
           ? _value.time
@@ -166,10 +145,6 @@ class __$$RecipeModelImplCopyWithImpl<$Res>
           ? _value._sliceIns
           : sliceIns // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      freezed == ingredients
-          ? _value._ingredients
-          : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ));
   }
 }
@@ -177,25 +152,18 @@ class __$$RecipeModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$RecipeModelImpl implements _RecipeModel {
-  const _$RecipeModelImpl(
-      this.title,
-      this.photo,
-      this.time,
-      this.similarity,
-      final List<String>? sliceIngre,
-      final List<String>? sliceIns,
-      final List<String>? ingredients)
+  const _$RecipeModelImpl(this.title, this.time, this.similarity,
+      final List<String>? sliceIngre, final List<String>? sliceIns)
       : _sliceIngre = sliceIngre,
-        _sliceIns = sliceIns,
-        _ingredients = ingredients;
+        _sliceIns = sliceIns;
 
   factory _$RecipeModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RecipeModelImplFromJson(json);
 
   @override
   final String? title;
-  @override
-  final String? photo;
+// String? photo,
+// String? description,
   @override
   final String? time;
   @override
@@ -220,19 +188,9 @@ class _$RecipeModelImpl implements _RecipeModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String>? _ingredients;
-  @override
-  List<String>? get ingredients {
-    final value = _ingredients;
-    if (value == null) return null;
-    if (_ingredients is EqualUnmodifiableListView) return _ingredients;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   @override
   String toString() {
-    return 'RecipeModel(title: $title, photo: $photo, time: $time, similarity: $similarity, sliceIngre: $sliceIngre, sliceIns: $sliceIns, ingredients: $ingredients)';
+    return 'RecipeModel(title: $title, time: $time, similarity: $similarity, sliceIngre: $sliceIngre, sliceIns: $sliceIns)';
   }
 
   @override
@@ -241,15 +199,12 @@ class _$RecipeModelImpl implements _RecipeModel {
         (other.runtimeType == runtimeType &&
             other is _$RecipeModelImpl &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.photo, photo) || other.photo == photo) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.similarity, similarity) ||
                 other.similarity == similarity) &&
             const DeepCollectionEquality()
                 .equals(other._sliceIngre, _sliceIngre) &&
-            const DeepCollectionEquality().equals(other._sliceIns, _sliceIns) &&
-            const DeepCollectionEquality()
-                .equals(other._ingredients, _ingredients));
+            const DeepCollectionEquality().equals(other._sliceIns, _sliceIns));
   }
 
   @JsonKey(ignore: true)
@@ -257,12 +212,10 @@ class _$RecipeModelImpl implements _RecipeModel {
   int get hashCode => Object.hash(
       runtimeType,
       title,
-      photo,
       time,
       similarity,
       const DeepCollectionEquality().hash(_sliceIngre),
-      const DeepCollectionEquality().hash(_sliceIns),
-      const DeepCollectionEquality().hash(_ingredients));
+      const DeepCollectionEquality().hash(_sliceIns));
 
   @JsonKey(ignore: true)
   @override
@@ -281,21 +234,18 @@ class _$RecipeModelImpl implements _RecipeModel {
 abstract class _RecipeModel implements RecipeModel {
   const factory _RecipeModel(
       final String? title,
-      final String? photo,
       final String? time,
       final double? similarity,
       final List<String>? sliceIngre,
-      final List<String>? sliceIns,
-      final List<String>? ingredients) = _$RecipeModelImpl;
+      final List<String>? sliceIns) = _$RecipeModelImpl;
 
   factory _RecipeModel.fromJson(Map<String, dynamic> json) =
       _$RecipeModelImpl.fromJson;
 
   @override
   String? get title;
-  @override
-  String? get photo;
-  @override
+  @override // String? photo,
+// String? description,
   String? get time;
   @override
   double? get similarity;
@@ -303,8 +253,6 @@ abstract class _RecipeModel implements RecipeModel {
   List<String>? get sliceIngre;
   @override
   List<String>? get sliceIns;
-  @override
-  List<String>? get ingredients;
   @override
   @JsonKey(ignore: true)
   _$$RecipeModelImplCopyWith<_$RecipeModelImpl> get copyWith =>

@@ -24,7 +24,7 @@ class RecipeGeneratorService {
 
     // Calculate similarity for each cuisine and store the results in rankings
     for (RecipeModel cuisine in filipinoCuisineData) {
-      List<String> cuisineIngredients = cuisine.ingredients!;
+      List<String> cuisineIngredients = cuisine.sliceIngre!;
       final similarity = cosineSimilarity.calculate(inputIngredients,
           cuisineIngredients.map((e) => e).toList(), filipinoCuisineData);
       rankings.add(MapEntry(cuisine.title!, similarity));

@@ -27,7 +27,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(colorSchemeSeed: Color.fromARGB(255, 15, 150, 132)),
+      theme:
+          ThemeData(colorSchemeSeed: const Color.fromARGB(255, 15, 150, 132)),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,

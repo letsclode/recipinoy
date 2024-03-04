@@ -28,20 +28,13 @@ class RecipeListViewModel extends BaseViewModel {
   }
 
   Future<List<RecipeModel>> fetchRecipes() async {
-    setBusy(true);
-    // TODO: Find or Create a TaskType that will automaticall do the setBusy(true/false) when being run.
-    var postsResults = await _firestoreService.getRecipes();
-    setBusy(false);
-
-    if (postsResults is List<RecipeModel>) {
-      _recipes = postsResults;
-      notifyListeners();
-    } else {
-      await _dialogService.showDialog(
-        title: 'Posts Update Failed',
-        description: postsResults,
-      );
+    try {
+      // TODO: Find or Create a TaskType that will automaticall do the setBusy(true/false) when being run.
+      List<RecipeModel> postsResults = await _firestoreService.getRecipes();
+      return postsResults;
+    } catch (e) {
+      print(e);
     }
-    return _recipes;
+    return [];
   }
 }

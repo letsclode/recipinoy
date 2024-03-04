@@ -82,7 +82,7 @@ class CosineSimilarity {
 
     for (RecipeModel recipe in allRecipes) {
       List<String> processeduniqueIngredients =
-          _preprocessIngredients(recipe.ingredients!.map((e) => e).toList());
+          _preprocessIngredients(recipe.sliceIngre!.map((e) => e).toList());
 
       Set<String> uniqueIngredients = processeduniqueIngredients.toSet();
 
@@ -126,6 +126,6 @@ class FilipinoCuisineData {
 
   Future<List<String>> getIngredients({required RecipeModel recipeModel}) {
     return getAllRecipes().then((value) =>
-        value.firstWhere((element) => element == recipeModel).ingredients!);
+        value.firstWhere((element) => element == recipeModel).sliceIngre!);
   }
 }

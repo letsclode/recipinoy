@@ -2,10 +2,8 @@ import 'package:flavorsph/ui/common/ui_helpers.dart';
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../common/app_colors.dart';
-import 'full_screen_image.dart';
 import 'ingredient_tile.dart';
 import 'step_tile.dart';
 
@@ -77,12 +75,6 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
             backgroundColor: Colors.transparent,
             elevation: 0,
             centerTitle: true,
-            title: const Text('Recipe Details',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'inter',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16)),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
               onPressed: () {
@@ -157,28 +149,29 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
         padding: EdgeInsets.zero,
         physics: const BouncingScrollPhysics(),
         children: [
+          //TODO: ADD PHOTO
           // Section 1 - Recipe Image
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => FullScreenImage(
-                      image:
-                          Image.asset(widget.data.photo!, fit: BoxFit.cover))));
-            },
-            child: Container(
-              height: 280,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(widget.data.photo!),
-                      fit: BoxFit.cover)),
-              child: Container(
-                decoration: BoxDecoration(gradient: AppColor.linearBlackTop),
-                height: 280,
-                width: MediaQuery.of(context).size.width,
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (context) => FullScreenImage(
+          //             image:
+          //                 Image.asset(widget.data.photo!, fit: BoxFit.cover))));
+          //   },
+          //   child: Container(
+          //     height: 280,
+          //     width: MediaQuery.of(context).size.width,
+          //     decoration: BoxDecoration(
+          //         image: DecorationImage(
+          //             image: AssetImage(widget.data.photo!),
+          //             fit: BoxFit.cover)),
+          //     child: Container(
+          //       decoration: BoxDecoration(gradient: AppColor.linearBlackTop),
+          //       height: 280,
+          //       width: MediaQuery.of(context).size.width,
+          //     ),
+          //   ),
+          // ),
           // Section 2 - Recipe Info
           Container(
             width: MediaQuery.of(context).size.width,
@@ -189,29 +182,9 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Recipe Calories and Time
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/icons/fire-filled.svg',
-                      color: Colors.white,
-                      width: 16,
-                      height: 16,
-                    ),
-                    const Icon(Icons.alarm, size: 16, color: Colors.white),
-                    Container(
-                      margin: const EdgeInsets.only(left: 5),
-                      child: Text(
-                        widget.data.time!,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
                 // Recipe Title
                 Container(
-                  margin: const EdgeInsets.only(bottom: 12, top: 16),
+                  margin: const EdgeInsets.only(bottom: 12, top: 16, left: 30),
                   child: Text(
                     widget.data.title!,
                     style: const TextStyle(
@@ -221,18 +194,19 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                         fontFamily: 'inter'),
                   ),
                 ),
+
+                //TODO: add description
                 // Recipe Description
-                Text(
-                  widget.data.description!,
-                  style: TextStyle(
-                      color: Colors.white.withOpacity(0.9),
-                      fontSize: 14,
-                      height: 150 / 100),
-                ),
+                // Text(
+                //   widget.data.description!,
+                //   style: TextStyle(
+                //       color: Colors.white.withOpacity(0.9),
+                //       fontSize: 14,
+                //       height: 150 / 100),
+                // ),
               ],
             ),
           ),
-          // Tabbar ( Ingridients, Tutorial, Reviews )
           Container(
             height: 60,
             width: MediaQuery.of(context).size.width,
@@ -269,11 +243,11 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                   ListView.builder(
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
-                    itemCount: widget.data.ingridients!.length,
+                    itemCount: widget.data.sliceIngre!.length,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return IngridientTile(
-                        data: widget.data.ingridients![index],
+                        data: widget.data.sliceIngre![index],
                       );
                     },
                   ),
@@ -287,7 +261,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                       ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        itemCount: widget.data.ingridients!
+                        itemCount: widget.data.sliceIngre!
                             .where((element) =>
                                 widget.availableIngredients.contains(element))
                             .toList()
@@ -295,7 +269,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return IngridientTile(
-                            data: widget.data.ingridients!
+                            data: widget.data.sliceIngre!
                                 .where((element) => widget.availableIngredients
                                     .contains(element))
                                 .toList()[index],
@@ -314,7 +288,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                       ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        itemCount: widget.data.ingridients!
+                        itemCount: widget.data.sliceIngre!
                             .where((element) =>
                                 !widget.availableIngredients.contains(element))
                             .toList()
@@ -322,7 +296,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return IngridientTile(
-                            data: widget.data.ingridients!
+                            data: widget.data.sliceIngre!
                                 .where((element) => !widget.availableIngredients
                                     .contains(element))
                                 .toList()[index],
@@ -337,11 +311,11 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
               ListView.builder(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
-                itemCount: widget.data.tutorial!.length,
+                itemCount: widget.data.sliceIns!.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return StepTile(
-                    data: widget.data.tutorial![index],
+                    data: widget.data.sliceIns![index],
                   );
                 },
               ),

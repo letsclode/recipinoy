@@ -142,7 +142,7 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
               Expanded(
                 child: viewModel.ingredients.length == 0
-                    ? Center(
+                    ? const Center(
                         child: Text("Ops no ingredients added"),
                       )
                     : ListView.builder(
