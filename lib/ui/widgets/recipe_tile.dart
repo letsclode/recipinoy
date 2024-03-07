@@ -46,13 +46,14 @@ class _RecipeTileState extends State<RecipeTile> {
       },
       child: Card(
         child: Container(
-          height: 120,
+          height: 100,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: AppColor.whiteSoft,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -64,9 +65,13 @@ class _RecipeTileState extends State<RecipeTile> {
                       borderRadius: BorderRadius.circular(5),
                       color: Colors.blueGrey,
                       //TODO: image from database
-                      image: const DecorationImage(
-                          image: AssetImage('assets/images/desert.jpg'),
-                          fit: BoxFit.cover),
+                      image: widget.data.photo == null
+                          ? const DecorationImage(
+                              image: AssetImage('assets/images/no_image.png'),
+                              fit: BoxFit.cover)
+                          : DecorationImage(
+                              image: NetworkImage(widget.data.photo!),
+                              fit: BoxFit.cover),
                     ),
                   ),
                   // Recipe Info

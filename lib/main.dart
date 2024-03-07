@@ -27,6 +27,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Recipinoy',
       theme:
           ThemeData(colorSchemeSeed: const Color.fromARGB(255, 15, 150, 132)),
       initialRoute: Routes.startupView,
