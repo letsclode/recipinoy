@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:flavorsph/app/app.locator.dart';
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 
+import '../../../app/app.locator.dart';
 import '../../../services/firestore_service.dart';
 
 class CosineSimilarity {
@@ -32,7 +32,7 @@ class CosineSimilarity {
         ingredients: processedRecipeIngredients, allRecipes: allRecipes);
 
     print('userIngredientFrequencies: $userIngredientFrequencies');
-    print('procces: $processedUserIngredients');
+    print('process: $processedUserIngredients');
     print('recipeIngredientFrequencies: $recipeIngredientFrequencies');
     print('frequencies: $inverseDocumentFrequencies');
 
@@ -82,7 +82,7 @@ class CosineSimilarity {
 
     for (RecipeModel recipe in allRecipes) {
       List<String> processeduniqueIngredients =
-          _preprocessIngredients(recipe.sliceIngre!.map((e) => e).toList());
+          _preprocessIngredients(recipe.ingredients!.map((e) => e).toList());
 
       Set<String> uniqueIngredients = processeduniqueIngredients.toSet();
 
@@ -126,6 +126,6 @@ class FilipinoCuisineData {
 
   Future<List<String>> getIngredients({required RecipeModel recipeModel}) {
     return getAllRecipes().then((value) =>
-        value.firstWhere((element) => element == recipeModel).sliceIngre!);
+        value.firstWhere((element) => element == recipeModel).ingredients!);
   }
 }

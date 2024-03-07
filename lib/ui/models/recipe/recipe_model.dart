@@ -8,12 +8,13 @@ part 'recipe_model.g.dart';
 class RecipeModel with _$RecipeModel {
   const factory RecipeModel(
     String? title,
-    // String? photo,
-    // String? description,
+    String? photo,
+    String? description,
     String? time,
     double? similarity,
     List<String>? sliceIngre,
     List<String>? sliceIns,
+    List<String>? ingredients,
   ) = _RecipeModel;
 
   factory RecipeModel.fromJson(Map<String, Object?> json) =>

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -100,50 +102,46 @@ class _SignupState extends ConsumerState<Signup> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Center(
-        child: SizedBox(
-          width: 600,
-          height: widget.authFormType == AuthFormType.signup ? 400 : 320,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Card(
-              elevation: 2,
-              child: _loader
-                  ? const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    )
-                  : Column(
-                      children: <Widget>[
-                        showAlert(),
-                        SizedBox(
-                          height: height * .025,
+        child: Container(
+          height: widget.authFormType == AuthFormType.signup ? 500 : 300,
+          width: 400,
+          child: Card(
+            elevation: 2,
+            child: _loader
+                ? const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  )
+                : Column(
+                    children: <Widget>[
+                      showAlert(),
+                      SizedBox(
+                        height: height * .025,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            buildHeaderText(),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              buildHeaderText(),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Form(
-                            key: formKey,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: buildInputs() + buildButtons(),
-                              ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Form(
+                          key: formKey,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: buildInputs() + buildButtons(),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-            ),
+                      ),
+                    ],
+                  ),
           ),
         ),
       ),

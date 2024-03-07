@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../color.dart';
-import '../constants.dart';
 import '../controllers/auth_controller.dart';
 import 'drawer_index_provider.dart';
 
@@ -27,14 +26,13 @@ class _KDrawerState extends ConsumerState<KDrawer> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text(
-              'Taghole',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+            child: Center(
+              child: Text(
+                'FlavorPH',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                ),
               ),
             ),
           ),
@@ -42,7 +40,7 @@ class _KDrawerState extends ConsumerState<KDrawer> {
             selected: currentIndex == 0,
             selectedTileColor: Colors.grey[100],
             leading: const Icon(Icons.home),
-            title: const Text('Dashboard'),
+            title: const Text('Recipes'),
             onTap: () {
               onTabTapped(0);
             },
@@ -50,8 +48,8 @@ class _KDrawerState extends ConsumerState<KDrawer> {
           ListTile(
             selected: currentIndex == 1,
             selectedTileColor: Colors.grey[100],
-            leading: const Icon(Icons.assignment),
-            title: const Text(KString.reportsTitle),
+            leading: const Icon(Icons.feedback),
+            title: const Text('Feedbacks'),
             onTap: () {
               onTabTapped(1);
             },
@@ -59,50 +57,14 @@ class _KDrawerState extends ConsumerState<KDrawer> {
           ListTile(
             selected: currentIndex == 2,
             selectedTileColor: Colors.grey[100],
-            leading: const Icon(Icons.assignment),
-            title: const Text(KString.reportsOngoingTitle),
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
             onTap: () {
               onTabTapped(2);
             },
           ),
           ListTile(
             selected: currentIndex == 3,
-            selectedTileColor: Colors.grey[100],
-            leading: const Icon(Icons.assignment),
-            title: const Text(KString.reportsCompletedTitle),
-            onTap: () {
-              onTabTapped(3);
-            },
-          ),
-          ListTile(
-            selected: currentIndex == 4,
-            selectedTileColor: Colors.grey[100],
-            leading: const Icon(Icons.assignment),
-            title: const Text(KString.reportsRejectedTitle),
-            onTap: () {
-              onTabTapped(4);
-            },
-          ),
-          ListTile(
-            selected: currentIndex == 5,
-            selectedTileColor: Colors.grey[100],
-            leading: const Icon(Icons.feedback),
-            title: const Text('Feedbacks'),
-            onTap: () {
-              onTabTapped(5);
-            },
-          ),
-          ListTile(
-            selected: currentIndex == 6,
-            selectedTileColor: Colors.grey[100],
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {
-              onTabTapped(6);
-            },
-          ),
-          ListTile(
-            selected: currentIndex == 7,
             selectedTileColor: Colors.grey[100],
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),

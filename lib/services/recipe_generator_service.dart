@@ -20,13 +20,13 @@ class RecipeGeneratorService {
 
     List<RecipeModel> filipinoCuisineData = await fetchRecipes();
 
-    print(filipinoCuisineData);
+    print("RECIPES ALL $filipinoCuisineData");
 
     // Calculate similarity for each cuisine and store the results in rankings
     for (RecipeModel cuisine in filipinoCuisineData) {
-      List<String> cuisineIngredients = cuisine.sliceIngre!;
-      final similarity = cosineSimilarity.calculate(inputIngredients,
-          cuisineIngredients.map((e) => e).toList(), filipinoCuisineData);
+      List<String> cuisineIngredients = cuisine.ingredients!;
+      final similarity = cosineSimilarity.calculate(
+          inputIngredients, cuisineIngredients, filipinoCuisineData);
       rankings.add(MapEntry(cuisine.title!, similarity));
     }
 
@@ -48,6 +48,8 @@ class RecipeGeneratorService {
     print("RANKINGS: $rankings");
 
     List<String> rankingKeys = rankings.map((e) => e.key).toList();
+    print("KEYS");
+    print(rankingKeys);
 
     double getnormalizedValue(value) {
       int decimalPlaces = 2;

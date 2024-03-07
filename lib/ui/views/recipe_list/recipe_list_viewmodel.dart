@@ -1,17 +1,12 @@
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 import '../../../app/app.locator.dart';
-import '../../../services/firestore_service.dart';
 import '../../../services/recipe_generator_service.dart';
 
 class RecipeListViewModel extends BaseViewModel {
-  //TODO: create service
-  final FirestoreService _firestoreService = locator<FirestoreService>();
-
-  final DialogService _dialogService = locator<DialogService>();
+  // final FirestoreService _firestoreService = locator<FirestoreService>();
 
   TextEditingController searchInputController = TextEditingController();
 
@@ -27,14 +22,14 @@ class RecipeListViewModel extends BaseViewModel {
         inputIngredients: ingredients);
   }
 
-  Future<List<RecipeModel>> fetchRecipes() async {
-    try {
-      // TODO: Find or Create a TaskType that will automaticall do the setBusy(true/false) when being run.
-      List<RecipeModel> postsResults = await _firestoreService.getRecipes();
-      return postsResults;
-    } catch (e) {
-      print(e);
-    }
-    return [];
-  }
+  // Future<List<RecipeModel>> fetchRecipes() async {
+  //   try {
+  //     // TODO: Find or Create a TaskType that will automaticall do the setBusy(true/false) when being run.
+  //     List<RecipeModel> postsResults = await _firestoreService.getRecipes();
+  //     return postsResults;
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   return [];
+  // }
 }

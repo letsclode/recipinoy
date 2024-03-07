@@ -121,7 +121,10 @@ class HomeView extends StackedView<HomeViewModel> {
 
                           GestureDetector(
                             onTap: () {
-                              viewModel.addIngredient(context: context);
+                              if (viewModel
+                                  .searchInputController.text.isNotEmpty) {
+                                viewModel.addIngredient(context: context);
+                              }
                             },
                             child: Container(
                               width: 40,

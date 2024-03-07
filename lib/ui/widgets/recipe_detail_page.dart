@@ -254,14 +254,25 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                   verticalSpaceMedium,
                   Column(
                     children: [
-                      Text(
-                        "Available Ingredients",
-                        style: Theme.of(context).textTheme.titleSmall,
+                      Container(
+                        height: 60,
+                        width: double.infinity,
+                        color: Colors.grey[200],
+                        child: Center(
+                          child: Text(
+                            "Available Ingredients",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: AppColor.primary, fontSize: 15),
+                          ),
+                        ),
                       ),
                       ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        itemCount: widget.data.sliceIngre!
+                        itemCount: widget.data.ingredients!
                             .where((element) =>
                                 widget.availableIngredients.contains(element))
                             .toList()
@@ -269,7 +280,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return IngridientTile(
-                            data: widget.data.sliceIngre!
+                            data: widget.data.ingredients!
                                 .where((element) => widget.availableIngredients
                                     .contains(element))
                                 .toList()[index],
@@ -281,14 +292,25 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                   verticalSpaceMedium,
                   Column(
                     children: [
-                      Text(
-                        "Missing Ingredients",
-                        style: Theme.of(context).textTheme.titleSmall,
+                      Container(
+                        width: double.infinity,
+                        height: 60,
+                        color: Colors.grey[200],
+                        child: Center(
+                          child: Text(
+                            "Missing Ingredients",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: AppColor.primary, fontSize: 15),
+                          ),
+                        ),
                       ),
                       ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        itemCount: widget.data.sliceIngre!
+                        itemCount: widget.data.ingredients!
                             .where((element) =>
                                 !widget.availableIngredients.contains(element))
                             .toList()
@@ -296,7 +318,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return IngridientTile(
-                            data: widget.data.sliceIngre!
+                            data: widget.data.ingredients!
                                 .where((element) => !widget.availableIngredients
                                     .contains(element))
                                 .toList()[index],

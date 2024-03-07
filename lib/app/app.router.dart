@@ -6,10 +6,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flavorsph/ui/views/home/home_view.dart' as _i2;
-import 'package:flavorsph/ui/views/login/login_view.dart' as _i4;
 import 'package:flavorsph/ui/views/recipe_list/recipe_list_view.dart' as _i6;
 import 'package:flavorsph/ui/views/startup/startup_view.dart' as _i3;
-import 'package:flavorsph/ui/views/welcome_page/welcome_page_view.dart' as _i5;
 import 'package:flutter/material.dart' as _i7;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
@@ -46,14 +44,6 @@ class StackedRouter extends _i1.RouterBase {
       page: _i3.StartupView,
     ),
     _i1.RouteDef(
-      Routes.loginView,
-      page: _i4.LoginView,
-    ),
-    _i1.RouteDef(
-      Routes.welcomePageView,
-      page: _i5.WelcomePageView,
-    ),
-    _i1.RouteDef(
       Routes.recipeListView,
       page: _i6.RecipeListView,
     ),
@@ -69,18 +59,6 @@ class StackedRouter extends _i1.RouterBase {
     _i3.StartupView: (data) {
       return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
-        settings: data,
-      );
-    },
-    _i4.LoginView: (data) {
-      return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.LoginView(),
-        settings: data,
-      );
-    },
-    _i5.WelcomePageView: (data) {
-      return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i5.WelcomePageView(),
         settings: data,
       );
     },

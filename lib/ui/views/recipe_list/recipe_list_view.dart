@@ -23,7 +23,7 @@ class RecipeListView extends StackedView<RecipeListViewModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             margin: const EdgeInsets.only(bottom: 15),
             child: const Text(
               'This is the recommended recipe\'s',
@@ -32,7 +32,8 @@ class RecipeListView extends StackedView<RecipeListViewModel> {
           ),
           Expanded(
               child: FutureBuilder<List<RecipeModel>>(
-                  future: viewModel.fetchRecipes(),
+                  future: viewModel.generateRecipe(
+                      ingredients: ingredientsFromUser),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
@@ -73,11 +74,4 @@ class RecipeListView extends StackedView<RecipeListViewModel> {
     BuildContext context,
   ) =>
       RecipeListViewModel();
-
-  @override
-  void onModelReady(RecipeListViewModel viewModel) {
-    // TODO: implement onModelReady
-    // viewModel.fetchPosts();
-    super.onViewModelReady(viewModel);
-  }
 }
