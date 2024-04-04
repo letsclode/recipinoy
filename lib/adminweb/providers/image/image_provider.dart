@@ -32,7 +32,6 @@ class ImageService {
         Reference _reference = storage.ref().child('images/${recipeId}');
         await _reference.putData(
           image,
-          SettableMetadata(contentType: 'image/jpeg'),
         );
 
         try {

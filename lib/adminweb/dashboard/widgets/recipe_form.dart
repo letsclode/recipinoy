@@ -157,7 +157,13 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                             widget.editableRecipe!.photo != null)
                           Stack(
                             children: [
-                              Image.network(widget.editableRecipe!.photo!),
+                              Center(
+                                child: Image.network(
+                                  widget.editableRecipe!.photo!,
+                                  fit: BoxFit.fitWidth,
+                                  width: double.infinity,
+                                ),
+                              ),
                               Positioned(
                                 right: 5,
                                 bottom: 5,
@@ -208,25 +214,30 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                                   )
                                 ],
                               )
-                            : IconButton(
-                                onPressed: () async {
-                                  await ref.read(imageProvider).chooseImage();
-                                  setState(() {});
-                                },
-                                icon: Container(
-                                  height: 200,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Upload Image"),
-                                      SizedBox(
-                                        width: 5,
+                            : widget.editableRecipe!.photo == null
+                                ? IconButton(
+                                    onPressed: () async {
+                                      await ref
+                                          .read(imageProvider)
+                                          .chooseImage();
+                                      setState(() {});
+                                    },
+                                    icon: Container(
+                                      height: 200,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("Upload Image"),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Icon(Icons.upload)
+                                        ],
                                       ),
-                                      Icon(Icons.upload)
-                                    ],
-                                  ),
-                                ),
-                              ),
+                                    ),
+                                  )
+                                : SizedBox(),
                       ],
                     ),
                   ),
