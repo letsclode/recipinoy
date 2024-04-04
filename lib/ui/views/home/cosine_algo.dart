@@ -6,8 +6,8 @@ import '../../../app/app.locator.dart';
 import '../../../services/firestore_service.dart';
 
 class CosineSimilarity {
-  double calculate(List<String> userIngredients, List<String> recipeIngredients,
-      List<RecipeModel> allRecipes) {
+  double calculate(List<String> userIngredients,
+      List<dynamic> recipeIngredients, List<RecipeModel> allRecipes) {
     if (userIngredients.isEmpty || recipeIngredients.isEmpty) {
       throw ArgumentError('Input vectors cannot be empty');
     }
@@ -60,7 +60,7 @@ class CosineSimilarity {
     return numerator / (denominator1 * denominator2);
   }
 
-  Map<String, int> _calculateTermFrequencies(List<String> ingredients) {
+  Map<String, int> _calculateTermFrequencies(List<dynamic> ingredients) {
     var frequencies = <String, int>{};
     for (var ingredient in ingredients) {
       frequencies[ingredient] = frequencies.containsKey(ingredient)
@@ -73,7 +73,7 @@ class CosineSimilarity {
 
   // Helper methods for TF-IDF calculations (implement or customize based on your data)
   Map<String, double> _calculateInverseDocumentFrequencies(
-      {required List<String> ingredients,
+      {required List<dynamic> ingredients,
       required List<RecipeModel> allRecipes}) {
     // Assuming you have a list of all recipes (or a representative sample)
 
@@ -81,10 +81,10 @@ class CosineSimilarity {
     Map<String, double> idf = {};
 
     for (RecipeModel recipe in allRecipes) {
-      List<String> processeduniqueIngredients =
+      List<dynamic> processeduniqueIngredients =
           _preprocessIngredients(recipe.ingredients!.map((e) => e).toList());
 
-      Set<String> uniqueIngredients = processeduniqueIngredients.toSet();
+      Set<dynamic> uniqueIngredients = processeduniqueIngredients.toSet();
 
       for (String ingredient in uniqueIngredients) {
         idf[ingredient] = idf.containsKey(ingredient)
@@ -102,7 +102,7 @@ class CosineSimilarity {
     return idf;
   }
 
-  List<String> _preprocessIngredients(List<String> ingredients) {
+  List<dynamic> _preprocessIngredients(List<dynamic> ingredients) {
     // Example preprocessing: Remove duplicates and lowercase ingredients
     var processedIngredients = ingredients.toSet().toList();
     processedIngredients = processedIngredients
@@ -124,7 +124,7 @@ class FilipinoCuisineData {
     return await _firestoreService.getRecipes();
   }
 
-  Future<List<String>> getIngredients({required RecipeModel recipeModel}) {
+  Future<List<dynamic>> getIngredients({required RecipeModel recipeModel}) {
     return getAllRecipes().then((value) =>
         value.firstWhere((element) => element == recipeModel).ingredients!);
   }

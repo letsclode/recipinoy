@@ -9,16 +9,20 @@ part 'feedback_stream_provider.g.dart';
 
 @riverpod
 Stream<List<FeedbackModel>> feedbacks(FeedbacksRef ref) async* {
-  final stream = FirebaseFirestore.instance
-      .collection('feedbacks')
-      .snapshots()
-      .map((querySnapshot) {
-    return querySnapshot.docs
-        .map((doc) => FeedbackModel.fromJson(doc.data()))
-        .toList();
-  });
+  try {
+    final stream = FirebaseFirestore.instance
+        .collection('feedbacks')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs
+          .map((doc) => FeedbackModel.fromJson(doc.data()))
+          .toList();
+    });
 
-  await for (final event in stream) {
-    yield event;
+    await for (final event in stream) {
+      yield event;
+    }
+  } catch (e) {
+    print(e);
   }
 }

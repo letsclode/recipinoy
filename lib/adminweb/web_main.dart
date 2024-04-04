@@ -19,6 +19,8 @@ class WebApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme:
+          ThemeData(colorSchemeSeed: const Color.fromARGB(255, 15, 150, 132)),
       routes: {
         '/': (BuildContext context) => const WebWelcomeScreen(),
         '/signin': (BuildContext context) =>

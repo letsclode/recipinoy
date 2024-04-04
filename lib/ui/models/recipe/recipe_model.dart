@@ -6,7 +6,8 @@ part 'recipe_model.g.dart';
 
 @freezed
 class RecipeModel with _$RecipeModel {
-  const factory RecipeModel(
+  const factory RecipeModel({
+    String? id,
     String? title,
     String? photo,
     String? description,
@@ -14,8 +15,9 @@ class RecipeModel with _$RecipeModel {
     double? similarity,
     List<String>? sliceIngre,
     List<String>? sliceIns,
-    List<String>? ingredients,
-  ) = _RecipeModel;
+    List<dynamic>? ingredients,
+    @Default(false) bool isSave,
+  }) = _RecipeModel;
 
   factory RecipeModel.fromJson(Map<String, Object?> json) =>
       _$RecipeModelFromJson(json);

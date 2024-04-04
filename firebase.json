@@ -1,9 +1,11 @@
 {
   "firestore": {
+    
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site":"recipinoy",
     "public": "build/web",
     "ignore": [
       "firebase.json",

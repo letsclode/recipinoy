@@ -8,22 +8,16 @@ part of 'feedback_model.dart';
 
 _$FeedbackModelImpl _$$FeedbackModelImplFromJson(Map<String, dynamic> json) =>
     _$FeedbackModelImpl(
-      id: json['id'] as String,
-      userId: json['userId'] as String,
-      reportId: json['reportId'] as String,
-      description: json['description'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
-      ratings: (json['ratings'] as num).toDouble(),
+      user: json['user'] as String,
+      text: json['text'] as String,
+      screenshot: json['screenshot'] as String,
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$$FeedbackModelImplToJson(_$FeedbackModelImpl instance) =>
     <String, dynamic>{
+      'user': instance.user,
+      'text': instance.text,
+      'screenshot': instance.screenshot,
       'id': instance.id,
-      'userId': instance.userId,
-      'reportId': instance.reportId,
-      'description': instance.description,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
-      'ratings': instance.ratings,
     };

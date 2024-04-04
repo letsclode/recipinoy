@@ -20,13 +20,10 @@ FeedbackModel _$FeedbackModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FeedbackModel {
-  String get id => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
-  String get reportId => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  double get ratings => throw _privateConstructorUsedError;
+  String get user => throw _privateConstructorUsedError;
+  String get text => throw _privateConstructorUsedError;
+  String get screenshot => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,14 +37,7 @@ abstract class $FeedbackModelCopyWith<$Res> {
           FeedbackModel value, $Res Function(FeedbackModel) then) =
       _$FeedbackModelCopyWithImpl<$Res, FeedbackModel>;
   @useResult
-  $Res call(
-      {String id,
-      String userId,
-      String reportId,
-      String description,
-      DateTime createdAt,
-      DateTime updatedAt,
-      double ratings});
+  $Res call({String user, String text, String screenshot, String? id});
 }
 
 /// @nodoc
@@ -63,43 +53,28 @@ class _$FeedbackModelCopyWithImpl<$Res, $Val extends FeedbackModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? userId = null,
-    Object? reportId = null,
-    Object? description = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? ratings = null,
+    Object? user = null,
+    Object? text = null,
+    Object? screenshot = null,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      user: null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as String,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      screenshot: null == screenshot
+          ? _value.screenshot
+          : screenshot // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      reportId: null == reportId
-          ? _value.reportId
-          : reportId // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      ratings: null == ratings
-          ? _value.ratings
-          : ratings // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String?,
     ) as $Val);
   }
 }
@@ -112,14 +87,7 @@ abstract class _$$FeedbackModelImplCopyWith<$Res>
       __$$FeedbackModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String userId,
-      String reportId,
-      String description,
-      DateTime createdAt,
-      DateTime updatedAt,
-      double ratings});
+  $Res call({String user, String text, String screenshot, String? id});
 }
 
 /// @nodoc
@@ -133,43 +101,28 @@ class __$$FeedbackModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? userId = null,
-    Object? reportId = null,
-    Object? description = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? ratings = null,
+    Object? user = null,
+    Object? text = null,
+    Object? screenshot = null,
+    Object? id = freezed,
   }) {
     return _then(_$FeedbackModelImpl(
-      id: null == id
+      user: null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as String,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      screenshot: null == screenshot
+          ? _value.screenshot
+          : screenshot // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      reportId: null == reportId
-          ? _value.reportId
-          : reportId // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      ratings: null == ratings
-          ? _value.ratings
-          : ratings // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String?,
     ));
   }
 }
@@ -178,35 +131,26 @@ class __$$FeedbackModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FeedbackModelImpl implements _FeedbackModel {
   _$FeedbackModelImpl(
-      {required this.id,
-      required this.userId,
-      required this.reportId,
-      required this.description,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.ratings});
+      {required this.user,
+      required this.text,
+      required this.screenshot,
+      this.id});
 
   factory _$FeedbackModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$FeedbackModelImplFromJson(json);
 
   @override
-  final String id;
+  final String user;
   @override
-  final String userId;
+  final String text;
   @override
-  final String reportId;
+  final String screenshot;
   @override
-  final String description;
-  @override
-  final DateTime createdAt;
-  @override
-  final DateTime updatedAt;
-  @override
-  final double ratings;
+  final String? id;
 
   @override
   String toString() {
-    return 'FeedbackModel(id: $id, userId: $userId, reportId: $reportId, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, ratings: $ratings)';
+    return 'FeedbackModel(user: $user, text: $text, screenshot: $screenshot, id: $id)';
   }
 
   @override
@@ -214,23 +158,16 @@ class _$FeedbackModelImpl implements _FeedbackModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeedbackModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.reportId, reportId) ||
-                other.reportId == reportId) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.ratings, ratings) || other.ratings == ratings));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.screenshot, screenshot) ||
+                other.screenshot == screenshot) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, reportId,
-      description, createdAt, updatedAt, ratings);
+  int get hashCode => Object.hash(runtimeType, user, text, screenshot, id);
 
   @JsonKey(ignore: true)
   @override
@@ -248,31 +185,22 @@ class _$FeedbackModelImpl implements _FeedbackModel {
 
 abstract class _FeedbackModel implements FeedbackModel {
   factory _FeedbackModel(
-      {required final String id,
-      required final String userId,
-      required final String reportId,
-      required final String description,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      required final double ratings}) = _$FeedbackModelImpl;
+      {required final String user,
+      required final String text,
+      required final String screenshot,
+      final String? id}) = _$FeedbackModelImpl;
 
   factory _FeedbackModel.fromJson(Map<String, dynamic> json) =
       _$FeedbackModelImpl.fromJson;
 
   @override
-  String get id;
+  String get user;
   @override
-  String get userId;
+  String get text;
   @override
-  String get reportId;
+  String get screenshot;
   @override
-  String get description;
-  @override
-  DateTime get createdAt;
-  @override
-  DateTime get updatedAt;
-  @override
-  double get ratings;
+  String? get id;
   @override
   @JsonKey(ignore: true)
   _$$FeedbackModelImplCopyWith<_$FeedbackModelImpl> get copyWith =>

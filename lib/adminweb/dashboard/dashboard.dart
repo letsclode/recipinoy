@@ -25,7 +25,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Responsive(mobile: Container(), desktop: RecipePage()),
+              Responsive(
+                  mobile: RecipePage(
+                    isMobile: true,
+                  ),
+                  desktop: RecipePage()),
               const SizedBox(
                 height: 10,
               ),

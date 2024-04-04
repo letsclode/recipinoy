@@ -1,19 +1,21 @@
 // Create a Form widget.
-import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
+import 'package:flavorsph/adminweb/providers/image/image_provider.dart';
+import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+class MyCustomForm extends ConsumerStatefulWidget {
+  final RecipeModel? editableRecipe;
+  const MyCustomForm({super.key, this.editableRecipe});
 
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
-  }
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyCustomFormState();
 }
 
-class MyCustomFormState extends State<MyCustomForm> {
+class _MyCustomFormState extends ConsumerState<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController inputIngreController = TextEditingController();
@@ -23,7 +25,6 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   List<String> ingredients = [];
   List<String> steps = [];
-
   bool loader = false;
 
   addIngredients() {
@@ -41,42 +42,100 @@ class MyCustomFormState extends State<MyCustomForm> {
     });
   }
 
-  Future<List<String>> sendPostRequest() async {
-    var response = await http.post(
-        Uri(path: 'https://cloderaldo.pythonanywhere.com/api/modify_array'),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({"values": ingredients}));
+  final dio = Dio();
 
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      final json = (jsonDecode(response.body) as Map<String, dynamic>);
+  Future<List<dynamic>> sendPostRequest() async {
+    try {
+      var data = {"values": ingredients};
 
-      return json['message'] as List<String>;
+      // final body = jsonEncode(data); // Encode data as JSON
+
+      var response = await dio.post(
+          'https://cloderaldo.pythonanywhere.com/api/modify_array',
+          data: data);
+
+      print('RESPONSE : ${response.statusCode}');
+      // print('RESPONSE : ${response.}');
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final json = (response.data as Map<String, dynamic>);
+
+        print(json['message']);
+
+        return json['message'] as List<dynamic>;
+      }
+    } catch (e) {
+      print(e);
     }
     return [];
   }
 
-  Future save() async {
+  Future save({String? recipeId}) async {
     setState(() {
       loader = true;
     });
+
     try {
-      //TODO: add photo description ingredients
-      final data = sendPostRequest();
-      print(data);
-      // RecipeModel newRecipe = RecipeModel(titleTXController.text, null, null,
-      //     timeTXController.text, null, ingredients, steps, []);
-      // FirebaseFirestore.instance
-      //     .collection('recipes')
-      //     .doc()
-      //     .set(newRecipe.toJson());
+      var uuid = Uuid();
+      List<dynamic> filteredIngredients = [];
+
+      filteredIngredients = await sendPostRequest();
+
+      print('filteredIngredients');
+      print(filteredIngredients);
+
+      final image = ref.read(imageProvider).globalImage;
+
+      String generatedId = uuid.v1();
+      var url;
+
+      print('generatedId');
+      print(generatedId);
+
+      if (image != null) {
+        url = await ref.read(imageProvider).uploadImageToStorage(
+            recipeId: recipeId != null ? recipeId : generatedId, image: image);
+      }
+      RecipeModel newRecipe = RecipeModel(
+          photo: url != null ? widget.editableRecipe!.photo : null,
+          title: titleTXController.text,
+          time: timeTXController.text,
+          sliceIngre: ingredients,
+          ingredients: filteredIngredients,
+          sliceIns: steps);
+
+      print(newRecipe);
+
+      if (recipeId != null) {
+        FirebaseFirestore.instance
+            .collection('recipes')
+            .doc(recipeId)
+            .update(newRecipe.toJson());
+      } else {
+        FirebaseFirestore.instance
+            .collection('recipes')
+            .doc(generatedId)
+            .set(newRecipe.toJson());
+      }
     } catch (e) {
       print(e);
     }
   }
 
   @override
+  void initState() {
+    if (widget.editableRecipe != null) {
+      timeTXController.text = widget.editableRecipe!.time!;
+      titleTXController.text = widget.editableRecipe!.title!;
+      steps = widget.editableRecipe!.sliceIns ?? [];
+      ingredients = widget.editableRecipe!.sliceIngre ?? [];
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
+    final imagePro = ref.watch(imageProvider);
     return SingleChildScrollView(
       child: loader
           ? Center(child: CircularProgressIndicator.adaptive())
@@ -85,6 +144,87 @@ class MyCustomFormState extends State<MyCustomForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        if (imagePro.globalImage == null &&
+                            widget.editableRecipe != null &&
+                            widget.editableRecipe!.photo != null)
+                          Stack(
+                            children: [
+                              Image.network(widget.editableRecipe!.photo!),
+                              Positioned(
+                                right: 5,
+                                bottom: 5,
+                                child: Card(
+                                  color: Colors.white.withOpacity(0.4),
+                                  child: IconButton(
+                                      onPressed: () async {
+                                        await ref
+                                            .read(imageProvider)
+                                            .chooseImage();
+                                        setState(() {});
+                                      },
+                                      icon: Icon(
+                                        Icons.change_circle,
+                                        color: Colors.white,
+                                      )),
+                                ),
+                              )
+                            ],
+                          ),
+                        imagePro.globalImage != null
+                            ? Stack(
+                                children: [
+                                  Center(
+                                    child: Image.memory(
+                                      height: 200,
+                                      imagePro.globalImage!,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 5,
+                                    bottom: 5,
+                                    child: Card(
+                                      color: Colors.white.withOpacity(0.4),
+                                      child: IconButton(
+                                          onPressed: () async {
+                                            await ref
+                                                .read(imageProvider)
+                                                .chooseImage();
+                                            setState(() {});
+                                          },
+                                          icon: Icon(
+                                            Icons.change_circle,
+                                            color: Colors.white,
+                                          )),
+                                    ),
+                                  )
+                                ],
+                              )
+                            : IconButton(
+                                onPressed: () async {
+                                  await ref.read(imageProvider).chooseImage();
+                                  setState(() {});
+                                },
+                                icon: Container(
+                                  height: 200,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Upload Image"),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Icon(Icons.upload)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
+                  ),
                   TextFormField(
                     controller: titleTXController,
                     decoration: InputDecoration(hintText: "Title"),
@@ -240,7 +380,13 @@ class MyCustomFormState extends State<MyCustomForm> {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-                            await save();
+
+                            if (widget.editableRecipe != null) {
+                              await save(recipeId: widget.editableRecipe!.id!);
+                            } else {
+                              await save();
+                            }
+
                             setState(() {
                               loader = false;
                             });

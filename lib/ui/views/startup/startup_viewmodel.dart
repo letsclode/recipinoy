@@ -1,6 +1,12 @@
 import 'package:stacked/stacked.dart';
 
 class StartupViewModel extends BaseViewModel {
+  bool isFirstTime = false;
+
+  set setPage(bool value) {
+    isFirstTime = value;
+    notifyListeners();
+  }
   // final _navigationService = locator<NavigationService>();
 
   // // Place anything here that needs to happen before we get into the application

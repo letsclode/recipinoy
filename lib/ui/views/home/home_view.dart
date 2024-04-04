@@ -16,6 +16,172 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      key: viewModel.key,
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Image.asset('assets/images/logo.png'),
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Ingredients",
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    children: viewModel.availableIngredients
+                        .map((e) => GestureDetector(
+                              onTap: () {
+                                viewModel.addAvailableIngredient(
+                                    ingredient: e, context: context);
+                              },
+                              child: Card(
+                                elevation: 2,
+                                color: viewModel.ingredients.contains(e.title)
+                                    ? Colors.white38
+                                    : Colors.white,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                        child: Image.asset(
+                                      e.image,
+                                      fit: BoxFit.fill,
+                                    )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: Text(
+                                        e.title,
+                                        style: TextStyle(
+                                            color: viewModel.ingredients
+                                                    .contains(e.title)
+                                                ? Colors.grey
+                                                : Colors.black),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Liquid Ingredients",
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    children: viewModel.liquidIngredients
+                        .map((e) => GestureDetector(
+                              onTap: () {
+                                viewModel.addAvailableIngredient(
+                                    ingredient: e, context: context);
+                              },
+                              child: Card(
+                                elevation: 2,
+                                color: viewModel.ingredients.contains(e.title)
+                                    ? Colors.white38
+                                    : Colors.white,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                        child: Image.asset(
+                                      e.image,
+                                      fit: BoxFit.fill,
+                                    )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: Text(
+                                        e.title,
+                                        style: TextStyle(
+                                            color: viewModel.ingredients
+                                                    .contains(e.title)
+                                                ? Colors.grey
+                                                : Colors.black),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Meat",
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    children: viewModel.meatIngredients
+                        .map((e) => GestureDetector(
+                              onTap: () {
+                                viewModel.addAvailableIngredient(
+                                    ingredient: e, context: context);
+                              },
+                              child: Card(
+                                elevation: 2,
+                                color: viewModel.ingredients.contains(e.title)
+                                    ? Colors.white38
+                                    : Colors.white,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                        child: Image.asset(
+                                      e.image,
+                                      fit: BoxFit.fill,
+                                    )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: Text(
+                                        e.title,
+                                        style: TextStyle(
+                                            color: viewModel.ingredients
+                                                    .contains(e.title)
+                                                ? Colors.grey
+                                                : Colors.black),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         actions: [
           IconButton(
@@ -39,6 +205,35 @@ class HomeView extends StackedView<HomeViewModel> {
         backgroundColor: AppColor.primary,
         elevation: 0,
         centerTitle: true,
+        leadingWidth: 145,
+        leading: Container(
+          height: 40,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10))),
+                  height: 25,
+                  width: double.infinity,
+                  child: MaterialButton(
+                    onPressed: () {
+                      viewModel.goToSaveRecipes(context);
+                    },
+                    child: Text(
+                      "Saved Recipe's", //DARK ORANGE
+                      style: TextStyle(color: Color.fromARGB(255, 255, 64, 0)),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
         title: Text('Generate Recipe',
             style: TextStyle(
                 fontFamily: 'inter',
@@ -144,41 +339,84 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
               ),
               Expanded(
-                child: viewModel.ingredients.length == 0
-                    ? const Center(
-                        child: Text("Ops no ingredients added"),
-                      )
-                    : ListView.builder(
-                        itemCount: viewModel.ingredients.length,
-                        itemBuilder: (_, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            child: ListTile(
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    viewModel.removeIngredient(
-                                        ingredientToRemove:
-                                            viewModel.ingredients[index]);
-                                  },
-                                  icon: Icon(
-                                    Icons.remove_circle_outlined,
-                                    color: Colors.white.withOpacity(0.8),
-                                  )),
-                              textColor: Colors.white,
-                              visualDensity: VisualDensity.compact,
-                              tileColor: Color.fromARGB(255, 255, 64, 0),
-                              leading: Text('${index + 1}.'),
-                              title: Text('${viewModel.ingredients[index]}'),
-                            ),
-                          );
-                        }),
-              ),
-              ElevatedButton(
-                  onPressed: viewModel.ingredientsEmpty
-                      ? null
-                      : viewModel.goToGeneratePage,
-                  child: Text("Generate"))
+                  child: Column(
+                children: [
+                  Row(
+                    children: [],
+                  ),
+                  Expanded(
+                    child: viewModel.ingredients.length == 0
+                        ? const Center(
+                            child: Text(
+                                "Select ingredients or type it at the top \n to add your available ingredients."),
+                          )
+                        : ListView.builder(
+                            itemCount: viewModel.ingredients.length,
+                            itemBuilder: (_, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                child: ListTile(
+                                  trailing: IconButton(
+                                      onPressed: () {
+                                        viewModel.removeIngredient(
+                                            ingredientToRemove:
+                                                viewModel.ingredients[index]);
+                                      },
+                                      icon: Icon(
+                                        Icons.remove_circle_outlined,
+                                        color: Colors.white.withOpacity(0.8),
+                                      )),
+                                  textColor: Colors.white,
+                                  visualDensity: VisualDensity.compact,
+                                  tileColor: Color.fromARGB(255, 255, 64, 0),
+                                  leading: Text('${index + 1}.'),
+                                  title:
+                                      Text('${viewModel.ingredients[index]}'),
+                                ),
+                              );
+                            }),
+                  )
+                ],
+              )),
+
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                height: 90,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        IconButton(
+                            onPressed: viewModel.clearAll,
+                            icon: Icon(
+                              Icons.restart_alt_rounded,
+                              color: Colors.red[900],
+                            )),
+                        Text('Clear')
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                            onPressed: viewModel.viewIngredients,
+                            icon: Icon(
+                              Icons.cookie_outlined,
+                              color: Colors.green[900],
+                            )),
+                        Text('Ingredients')
+                      ],
+                    ),
+                    ElevatedButton(
+                        onPressed: viewModel.ingredientsEmpty
+                            ? null
+                            : viewModel.goToGeneratePage,
+                        child: Text("Generate")),
+                  ],
+                ),
+              )
             ],
           ),
         ),

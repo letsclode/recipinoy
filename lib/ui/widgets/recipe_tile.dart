@@ -8,9 +8,15 @@ import 'recipe_detail_page.dart';
 
 class RecipeTile extends StatefulWidget {
   final RecipeModel data;
+  final Function() updateData;
   final List<String> availableIngredients;
-  const RecipeTile(
-      {super.key, required this.data, required this.availableIngredients});
+
+  const RecipeTile({
+    super.key,
+    required this.data,
+    required this.availableIngredients,
+    required this.updateData,
+  });
 
   @override
   State<RecipeTile> createState() => _RecipeTileState();
@@ -18,8 +24,10 @@ class RecipeTile extends StatefulWidget {
 
 class _RecipeTileState extends State<RecipeTile> {
   late Color percentColor;
+
   @override
   void initState() {
+    print("DATA");
     if (widget.data.similarity != null) {
       setState(() {
         if (widget.data.similarity! > 0.5) {
@@ -40,6 +48,7 @@ class _RecipeTileState extends State<RecipeTile> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => RecipeDetailPage(
+                  updateData: widget.updateData,
                   data: widget.data,
                   availableIngredients: widget.availableIngredients,
                 )));
@@ -86,11 +95,19 @@ class _RecipeTileState extends State<RecipeTile> {
                           // Recipe title
                           Container(
                             margin: const EdgeInsets.only(bottom: 12),
-                            child: Text(
-                              widget.data.title ?? '',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'inter'),
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    softWrap: true,
+                                    widget.data.title ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'inter'),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Row(

@@ -6,13 +6,10 @@ part 'feedback_model.g.dart';
 @freezed
 class FeedbackModel with _$FeedbackModel {
   factory FeedbackModel({
-    required String id,
-    required String userId,
-    required String reportId,
-    required String description,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-    required double ratings,
+    required String user,
+    required String text,
+    required String screenshot,
+    String? id,
   }) = _FeedbackModel;
 
   factory FeedbackModel.fromJson(Map<String, dynamic> json) =>

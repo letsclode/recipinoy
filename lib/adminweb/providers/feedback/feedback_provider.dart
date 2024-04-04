@@ -10,7 +10,7 @@ class FeedbackNotifier extends StateNotifier<List<FeedbackModel>> {
   // Let's allow the UI to add todos.
   Future<void> addFeedback(FeedbackModel feedbackModel) async {
     try {
-      final json = await FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('feedbacks')
           .doc(feedbackModel.id)
           .set(feedbackModel.toJson());

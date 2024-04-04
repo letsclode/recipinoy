@@ -8,18 +8,25 @@ part of 'recipe_model.dart';
 
 _$RecipeModelImpl _$$RecipeModelImplFromJson(Map<String, dynamic> json) =>
     _$RecipeModelImpl(
-      json['title'] as String?,
-      json['photo'] as String?,
-      json['description'] as String?,
-      json['time'] as String?,
-      (json['similarity'] as num?)?.toDouble(),
-      (json['sliceIngre'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      (json['sliceIns'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      (json['ingredients'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      id: json['id'] as String?,
+      title: json['title'] as String?,
+      photo: json['photo'] as String?,
+      description: json['description'] as String?,
+      time: json['time'] as String?,
+      similarity: (json['similarity'] as num?)?.toDouble(),
+      sliceIngre: (json['sliceIngre'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      sliceIns: (json['sliceIns'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      ingredients: json['ingredients'] as List<dynamic>?,
+      isSave: json['isSave'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$RecipeModelImplToJson(_$RecipeModelImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'photo': instance.photo,
       'description': instance.description,
@@ -28,4 +35,5 @@ Map<String, dynamic> _$$RecipeModelImplToJson(_$RecipeModelImpl instance) =>
       'sliceIngre': instance.sliceIngre,
       'sliceIns': instance.sliceIns,
       'ingredients': instance.ingredients,
+      'isSave': instance.isSave,
     };

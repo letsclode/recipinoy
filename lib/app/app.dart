@@ -3,8 +3,8 @@ import 'package:flavorsph/services/firestore_service.dart';
 import 'package:flavorsph/services/recipe_generator_service.dart';
 import 'package:flavorsph/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:flavorsph/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:flavorsph/ui/views/favourite/favourite_view.dart';
 import 'package:flavorsph/ui/views/home/home_view.dart';
-import 'package:flavorsph/ui/views/recipe_list/recipe_list_view.dart';
 import 'package:flavorsph/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -15,7 +15,9 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
-    MaterialRoute(page: RecipeListView),
+    // MaterialRoute(page: RecipeListView),
+
+    MaterialRoute(page: FavouriteView),
 // @stacked-route
   ],
   dependencies: [

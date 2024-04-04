@@ -1,3 +1,4 @@
+import 'package:flavorsph/ui/widgets/full_screen_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -56,10 +57,16 @@ class MyDataTableSource extends DataTableSource {
     final FeedbackModel row = data[index];
 
     return DataRow(cells: [
-      DataCell(Text(row.reportId)),
-      DataCell(Text(row.userId)),
-      DataCell(Text(row.description)),
-      DataCell(Text(row.ratings.toString())),
+      DataCell(Text(row.user)),
+      DataCell(Text(row.text)),
+      DataCell(TextButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => FullScreenImage(
+                    image:
+                        Image.network(row.screenshot, fit: BoxFit.fitHeight))));
+          },
+          child: Text("View Image"))),
     ]);
   }
 

@@ -12,9 +12,10 @@ Stream<List<RecipeModel>> recipes(RecipesRef ref) async* {
       .collection('recipes')
       .snapshots()
       .map((querySnapshot) {
-    return querySnapshot.docs
-        .map((doc) => RecipeModel.fromJson(doc.data()))
-        .toList();
+    return querySnapshot.docs.map((doc) {
+      // print(doc.id);
+      return RecipeModel.fromJson(doc.data()).copyWith(id: doc.id);
+    }).toList();
   });
 
   await for (final event in stream) {

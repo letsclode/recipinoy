@@ -20,8 +20,34 @@ class FirestoreService {
       if (recipeDocuments.docs.isNotEmpty) {
         var data = recipeDocuments.docs
             .map((snapshot) =>
-                RecipeModel.fromJson(snapshot.data() as Map<String, Object?>))
+                RecipeModel.fromJson(snapshot.data() as Map<String, Object?>)
+                    .copyWith(id: snapshot.id))
             .where((mappedItem) => mappedItem.title != null)
+            .toList();
+        print('RECIPE DATA');
+        print(data.length);
+        return data;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return [];
+  }
+
+  Future<List<RecipeModel>> savedRecipe() async {
+    try {
+      var recipeDocuments = await _recipesCollectionReference.get();
+      if (recipeDocuments.docs.isNotEmpty) {
+        var data = recipeDocuments.docs
+            .map((snapshot) {
+              print(("ID SNAPSHOT"));
+              print(snapshot.id);
+              return RecipeModel.fromJson(
+                      snapshot.data() as Map<String, Object?>)
+                  .copyWith(id: snapshot.id);
+            })
+            .where((mappedItem) => mappedItem.title != null)
+            .where((element) => element.isSave)
             .toList();
 
         return data;

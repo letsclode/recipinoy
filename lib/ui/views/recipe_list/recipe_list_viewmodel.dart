@@ -22,14 +22,11 @@ class RecipeListViewModel extends BaseViewModel {
         inputIngredients: ingredients);
   }
 
-  // Future<List<RecipeModel>> fetchRecipes() async {
-  //   try {
-  //     // TODO: Find or Create a TaskType that will automaticall do the setBusy(true/false) when being run.
-  //     List<RecipeModel> postsResults = await _firestoreService.getRecipes();
-  //     return postsResults;
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   return [];
-  // }
+  Future<List<RecipeModel>> recipe() async {
+    return await _recipeGeneratorService.fetchSavedRecipes();
+  }
+
+  void updateData() {
+    notifyListeners();
+  }
 }

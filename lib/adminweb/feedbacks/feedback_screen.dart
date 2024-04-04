@@ -15,19 +15,18 @@ class _FeedbackScreenState extends ConsumerState<FeedbackScreen> {
   @override
   Widget build(BuildContext context) {
     final feedbackProvider = ref.watch(feedbacksProvider);
-    return switch (feedbackProvider) {
-      AsyncData(:final value) => FeedbackTable(
-          title: 'Feedbacks',
-          headers: const [
-            'Report ID',
-            'User ID',
-            'Description',
-            'Rating',
-          ],
-          data: value,
-        ),
-      AsyncError(:final error) => Text('Error: $error'),
-      _ => const Center(child: CircularProgressIndicator()),
-    };
+
+    return feedbackProvider.when(
+        data: (value) => FeedbackTable(
+              title: 'Feedbacks',
+              headers: const [
+                'User',
+                'Description',
+                'Screenshot',
+              ],
+              data: value,
+            ),
+        error: (error, stackTrace) => Text('Error: $error'),
+        loading: () => Center(child: CircularProgressIndicator()));
   }
 }
