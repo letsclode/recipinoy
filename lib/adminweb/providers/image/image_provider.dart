@@ -38,8 +38,6 @@ class ImageService {
         try {
           String downloadURL = await _reference.getDownloadURL();
 
-          //TODO: save to firestore
-          print("inside");
           print(downloadURL);
           return downloadURL;
         } catch (error) {

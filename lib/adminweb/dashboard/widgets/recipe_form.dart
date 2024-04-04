@@ -96,8 +96,13 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
         url = await ref.read(imageProvider).uploadImageToStorage(
             recipeId: recipeId != null ? recipeId : generatedId, image: image);
       }
+
+      print("URL");
+      print(url);
+
       RecipeModel newRecipe = RecipeModel(
-          photo: url != null ? widget.editableRecipe!.photo : null,
+          id: recipeId != null ? recipeId : generatedId,
+          photo: url != null ? url : widget.editableRecipe!.photo,
           title: titleTXController.text,
           time: timeTXController.text,
           sliceIngre: ingredients,

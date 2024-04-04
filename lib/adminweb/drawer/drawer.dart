@@ -28,7 +28,7 @@ class _KDrawerState extends ConsumerState<KDrawer> {
           const DrawerHeader(
             child: Center(
               child: Text(
-                'FlavorPH',
+                'Recipinoy',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24,
