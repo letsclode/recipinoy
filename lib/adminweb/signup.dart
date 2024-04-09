@@ -95,12 +95,6 @@ class _SignupState extends ConsumerState<Signup> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
@@ -309,17 +303,17 @@ class _SignupState extends ConsumerState<Signup> {
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          MaterialButton(
-            child: Text(
-              switchButtonText,
-            ),
-            onPressed: () {
-              switchFormState(newFormState);
-            },
-          ),
-          const SizedBox(
-            width: 20,
-          ),
+          // MaterialButton(
+          //   child: Text(
+          //     switchButtonText,
+          //   ),
+          //   onPressed: () {
+          //     switchFormState(newFormState);
+          //   },
+          // ),
+          // const SizedBox(
+          //   width: 20,
+          // ),
           ElevatedButton(
             onPressed: submit,
             child: Text(

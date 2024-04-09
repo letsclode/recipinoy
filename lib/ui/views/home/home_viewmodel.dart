@@ -94,6 +94,8 @@ class HomeViewModel extends BaseViewModel {
 
   List<String> ingredients = [];
 
+  // List<String> selectedIngredients = [];
+
   bool get addIngredientButtonIsDisable => searchInputController.text == "";
 
   bool get ingredientsEmpty => ingredients.isEmpty;
@@ -111,7 +113,6 @@ class HomeViewModel extends BaseViewModel {
 
   void add(newIngredient, context) {
     if (ingredients.contains(newIngredient)) {
-      // Show a toast message using ScaffoldMessenger
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("$newIngredient is already in the list."),
@@ -154,6 +155,28 @@ class HomeViewModel extends BaseViewModel {
 
   void viewIngredients() {
     key.currentState!.openDrawer();
+    notifyListeners();
+  }
+
+  // void selectIngredients(String ingredient) {
+  //   selectedIngredients.add(ingredient);
+  //   notifyListeners();
+  // }
+
+  // void unselect(String ingredient) {
+  //   selectedIngredients.remove(ingredient);
+  //   notifyListeners();
+  // }
+
+  popolateAllIngredients() {
+    List<IngredientModel> allSaveIngredient = [
+      ...availableIngredients,
+      ...liquidIngredients,
+      ...meatIngredients
+    ];
+
+    ingredients.addAll(allSaveIngredient.map((e) => e.title).toList());
+
     notifyListeners();
   }
 }

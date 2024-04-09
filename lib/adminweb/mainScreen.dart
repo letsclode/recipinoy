@@ -26,17 +26,33 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final currentIndex = ref.watch(drawerIndexProvider);
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
+        leadingWidth: 200,
+        // leading: Row(
+        //   children: [
+        //     SizedBox(
+        //       width: 20,
+        //     ),
+        //     Container(
+        //       width: 40,
+        //       height: 40,
+        //       child: Image.asset("assets/images/logo.png"),
+        //     ),
+        //   ],
+        // ),
         title: Text(['Recipes', 'Feedbacks', 'Settings'][currentIndex]),
         automaticallyImplyLeading: Responsive.isDesktop(context) ? false : true,
       ),
       drawer: const KDrawer(),
-      body: Row(
-        children: [
-          Visibility(
-              visible: Responsive.isDesktop(context),
-              child: const Expanded(child: KDrawer())),
-          Expanded(flex: 4, child: pages[currentIndex])
-        ],
+      body: Container(
+        child: Row(
+          children: [
+            Visibility(
+                visible: Responsive.isDesktop(context),
+                child: const Expanded(child: KDrawer())),
+            Expanded(flex: 4, child: pages[currentIndex])
+          ],
+        ),
       ),
     );
   }

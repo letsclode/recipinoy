@@ -132,8 +132,8 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
     if (widget.editableRecipe != null) {
       timeTXController.text = widget.editableRecipe!.time!;
       titleTXController.text = widget.editableRecipe!.title!;
-      steps = widget.editableRecipe!.sliceIns ?? [];
-      ingredients = widget.editableRecipe!.sliceIngre ?? [];
+      steps = [...widget.editableRecipe!.sliceIns!] ?? [];
+      ingredients = [...widget.editableRecipe!.sliceIngre!] ?? [];
     }
     super.initState();
   }
@@ -153,8 +153,7 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                     child: Column(
                       children: [
                         if (imagePro.globalImage == null &&
-                            widget.editableRecipe != null &&
-                            widget.editableRecipe!.photo != null)
+                            widget.editableRecipe != null)
                           Stack(
                             children: [
                               Center(
@@ -190,6 +189,7 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                                   Center(
                                     child: Image.memory(
                                       height: 200,
+                                      width: double.infinity,
                                       imagePro.globalImage!,
                                       fit: BoxFit.fitWidth,
                                     ),
@@ -214,7 +214,7 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                                   )
                                 ],
                               )
-                            : widget.editableRecipe!.photo == null
+                            : widget.editableRecipe == null
                                 ? IconButton(
                                     onPressed: () async {
                                       await ref

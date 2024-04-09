@@ -25,17 +25,17 @@ class _KDrawerState extends ConsumerState<KDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Center(
-              child: Text(
-                'Recipinoy',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-          ),
+          // const DrawerHeader(
+          //   child: Center(
+          //     child: Text(
+          //       'Recipinoy',
+          //       style: TextStyle(
+          //         color: Colors.black,
+          //         fontSize: 24,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           ListTile(
             selected: currentIndex == 0,
             selectedTileColor: Colors.grey[100],
@@ -84,7 +84,7 @@ class _KDrawerState extends ConsumerState<KDrawer> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 MaterialButton(
-                                  color: secondaryColor,
+                                  color: kPrimaryColor,
                                   onPressed: () async {
                                     print('signout');
                                     try {
