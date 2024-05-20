@@ -1,7 +1,8 @@
+import 'package:flavorsph/adminweb/user/screens/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'dashboard/dashboard.dart';
+import 'recipe/dashboard.dart';
 import 'drawer/drawer.dart';
 import 'drawer/drawer_index_provider.dart';
 import 'feedbacks/feedback_screen.dart';
@@ -19,7 +20,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   final pages = [
     const DashboardScreen(),
     const FeedbackScreen(),
-    const SettingsScreen()
+    const SettingsScreen(),
+    const UserScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         //     ),
         //   ],
         // ),
-        title: Text(['Recipes', 'Feedbacks', 'Settings'][currentIndex]),
+        title:
+            Text(['Recipes', 'Feedbacks', 'Settings', 'Users'][currentIndex]),
         automaticallyImplyLeading: Responsive.isDesktop(context) ? false : true,
       ),
       drawer: const KDrawer(),

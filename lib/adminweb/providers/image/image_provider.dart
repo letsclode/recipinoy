@@ -1,7 +1,7 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'image_provider.g.dart';
@@ -51,10 +51,36 @@ class ImageService {
   }
 
 //TODO: test this chooseimage
+
+  Future<void> chooseCameraImage() async {
+    final imagePicker = ImagePicker();
+    final XFile? pickedImage = await imagePicker.pickImage(
+      source: ImageSource.camera,
+    );
+
+    if (pickedImage != null) {
+      selectedFile = pickedImage.path;
+      globalImage = await pickedImage.readAsBytes();
+      print("GLOBAL IMAGE");
+      print(globalImage);
+    } else {
+      print('User canceled or failed to pick image');
+    }
+  }
+
   Future<void> chooseImage() async {
-    final FilePickerResult? result = await FilePicker.platform.pickFiles();
-    selectedFile = result!.files.first.name;
-    globalImage = result.files.first.bytes;
-    color = Colors.blue;
+    final imagePicker = ImagePicker();
+    final XFile? pickedImage = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedImage != null) {
+      selectedFile = pickedImage.path;
+      globalImage = await pickedImage.readAsBytes();
+      print("GLOBAL IMAGE");
+      print(globalImage);
+    } else {
+      print('User canceled or failed to pick image');
+    }
   }
 }

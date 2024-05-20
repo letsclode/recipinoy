@@ -1,16 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flavorsph/provider/mydish/dish_provider.dart';
+import 'package:flavorsph/provider/myfavorite/favorite_provider.dart';
+import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SavedButton extends ConsumerStatefulWidget {
   final bool isSave;
-  final String id;
-  final Function() updateData;
-  const SavedButton(
-      {super.key,
-      required this.id,
-      required this.isSave,
-      required this.updateData});
+  final String userId;
+  final RecipeModel recipe;
+  const SavedButton({
+    super.key,
+    required this.recipe,
+    required this.isSave,
+    required this.userId,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SavedButtonState();
@@ -25,7 +29,7 @@ class _SavedButtonState extends ConsumerState<SavedButton> {
 
     setState(() {
       isSave = widget.isSave;
-      id = widget.id;
+      id = widget.recipe.id!;
 
       print(id);
     });
@@ -33,17 +37,25 @@ class _SavedButtonState extends ConsumerState<SavedButton> {
   }
 
   Future<void> updteSave() async {
+    List<String> newLikes = [];
+
+    if (widget.recipe.likes.contains(widget.userId)) {
+      //remove
+
+      newLikes = widget.recipe.likes
+          .where((element) => element != widget.userId)
+          .toList();
+    } else {
+      newLikes = [...widget.recipe.likes, widget.userId];
+      // add
+    }
+
     print("UPDATE IN VIEWMODEL");
     try {
       await FirebaseFirestore.instance
           .collection('recipes')
           .doc(id)
-          .update({'isSave': !isSave}).then((value) => {
-                setState(() {
-                  isSave = !isSave;
-                  widget.updateData();
-                })
-              });
+          .update({'likes': newLikes});
     } catch (e) {
       print(e);
     }
@@ -51,20 +63,26 @@ class _SavedButtonState extends ConsumerState<SavedButton> {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-            if (isSave) {
-              return Colors.orange;
-            } else {
-              return Colors.grey;
-            }
-          }),
-        ),
-        onPressed: updteSave,
-        child: Text(
-          "Save",
-          style: TextStyle(color: Colors.white),
-        ));
+    return Consumer(builder: (context, ref, child) {
+      return IconButton(
+          onPressed: () {
+            updteSave().whenComplete(() => setState(() {
+                  ref.refresh(dishProvider);
+                  ref.refresh(favoriteProvider);
+                  isSave = !widget.isSave;
+                }));
+          },
+          icon: isSave
+              ? Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                  size: 40,
+                )
+              : Icon(
+                  Icons.favorite_border,
+                  color: Colors.red,
+                  size: 40,
+                ));
+    });
   }
 }

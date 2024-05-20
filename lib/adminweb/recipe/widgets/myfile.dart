@@ -1,4 +1,4 @@
-import 'package:flavorsph/adminweb/dashboard/widgets/card.dart';
+import 'package:flavorsph/adminweb/recipe/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

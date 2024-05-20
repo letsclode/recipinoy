@@ -1,14 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:feedback/feedback.dart';
-import 'package:flavorsph/adminweb/providers/image/image_provider.dart';
-import 'package:flavorsph/adminweb/repositories/auth_repository.dart';
+import 'package:flavorsph/constant/color.dart';
+import 'package:flavorsph/ui/widgets/recipe_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked/stacked.dart';
-import 'package:uuid/uuid.dart';
-
+import '../../../provider/user_ingredients/user_ingredients_provider.dart';
 import '../../models/recipe/recipe_model.dart';
-import '../../widgets/recipe_tile.dart';
+import '../../widgets/drop_down_menu.dart';
+import '../../widgets/generate_button.dart';
 import 'recipe_list_viewmodel.dart';
 
 class RecipeListView extends StackedView<RecipeListViewModel> {
@@ -24,96 +24,229 @@ class RecipeListView extends StackedView<RecipeListViewModel> {
     RecipeListViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        actions: [
-          Consumer(
-            builder: (_, ref, child) {
-              final imagePro = ref.read(imageProvider);
-              final userPro = ref.read(authRepositoryProvider).getCurrentUser();
-              var uuid = Uuid();
-              return TextButton(
-                  onPressed: () async {
-                    BetterFeedback.of(context)
-                        .show((UserFeedback feedback) async {
-                      print("FEEDBACK");
-                      print(feedback);
-
-                      final url = await imagePro.uploadImageToStorage(
-                          recipeId: uuid.v1(), image: feedback.screenshot);
-
-                      FirebaseFirestore.instance.collection('feedbacks').add({
-                        "text": feedback.text,
-                        "screenshot": url,
-                        "user": userPro!.displayName
-                      });
-                    });
-                  },
-                  child: Text("Send a feedback"));
-            },
-          )
-        ],
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 10),
-            margin: const EdgeInsets.only(bottom: 15),
-            child: const Text(
-              'This is the recommended recipe\'s',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 10,
+            foregroundColor: Colors.transparent,
+            backgroundColor: color1,
+            bottom: const TabBar(
+              tabs: [
+                Tab(icon: Text("Match Dish")),
+                Tab(icon: Text("Suggested Dish")),
+              ],
             ),
           ),
-          Expanded(
-              child: FutureBuilder<List<RecipeModel>>(
-                  future: isSavePage
-                      ? viewModel.recipe()
-                      : viewModel.generateRecipe(
-                          ingredients: ingredientsFromUser),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      );
-                    }
+          body: Stack(
+            children: [
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 100,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DropDownMenu(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        FutureBuilder<List<RecipeModel>>(
+                            future: viewModel.getRecipe(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                );
+                              }
+                              if (snapshot.data != null) {
+                                if (snapshot.data!.length > 0) {
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        margin: EdgeInsets.only(
+                                            bottom: snapshot.data!.length - 1 ==
+                                                    index
+                                                ? 70
+                                                : 0),
+                                        child: RecipeTile(
+                                          data: snapshot.data![index],
+                                          availableIngredients:
+                                              ingredientsFromUser
+                                                  .map((e) => e.toLowerCase())
+                                                  .toList(),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return Consumer(
+                                      builder: (context, ref, child) {
+                                    return Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/empty.png',
+                                            width: 300,
+                                          ),
+                                          Text(
+                                            ingredientsFromUser.isEmpty
+                                                ? "Please input  ingredients above."
+                                                : "Sorry it seems no recipe is matched.",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                                }
+                              }
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/empty.png',
+                                      width: 300,
+                                    ),
+                                    Text(
+                                      "Please input  ingredients above.",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                    SizedBox(
+                                      height: 100,
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                        FutureBuilder<List<RecipeModel>>(
+                            future: viewModel.getSuggested(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                );
+                              }
 
-                    if (snapshot.data != null) {
-                      return ListView.separated(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(height: 5);
-                        },
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: RecipeTile(
-                              updateData: viewModel.updateData,
-                              data: snapshot.data![index],
-                              availableIngredients: ingredientsFromUser
-                                  .map((e) => e.toLowerCase())
-                                  .toList(),
-                            ),
-                          );
-                        },
-                      );
-                    }
+                              if (snapshot.data != null) {
+                                if (snapshot.data!.length > 0) {
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        margin: EdgeInsets.only(
+                                            bottom: snapshot.data!.length - 1 ==
+                                                    index
+                                                ? 70
+                                                : 0),
+                                        child: RecipeTile(
+                                          data: snapshot.data![index],
+                                          availableIngredients:
+                                              ingredientsFromUser
+                                                  .map((e) => e.toLowerCase())
+                                                  .toList(),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return Consumer(
+                                      builder: (context, ref, child) {
+                                    return Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/empty.png',
+                                            width: 300,
+                                          ),
+                                          Text(
+                                            ingredientsFromUser.isEmpty
+                                                ? "Please input  ingredients above."
+                                                : "No suggested dish found!",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                                }
+                              }
 
-                    return const Center(
-                      child: Text("Empty"),
-                    );
-                  }))
-        ],
-      ),
-    );
-  }
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/empty.png',
+                                      width: 300,
+                                    ),
+                                    Text(
+                                      "Please input  ingredients above.",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                    SizedBox(
+                                      height: 100,
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Consumer(builder: (context, ref, child) {
+                return Positioned(
+                    bottom: 10,
+                    right: 10,
+                    left: 10,
+                    child: GenerateButton(
+                      generate: (() {
+                        final selectedIngredients =
+                            ref.watch(userIngredientsProvider);
 
-  @override
-  void onModelReady(RecipeListViewModel viewModel) {
-    print("ONMODELREADY");
+                        viewModel.generateRecipe(
+                            ingredients: selectedIngredients.value!
+                                .map((e) => e.title)
+                                .toList());
+
+                        viewModel.generateSuggestedRecipe(
+                            ingredients: selectedIngredients.value!
+                                .map((e) => e.title)
+                                .toList());
+                      }),
+                    ));
+              })
+            ],
+          ),
+        ));
   }
 
   @override

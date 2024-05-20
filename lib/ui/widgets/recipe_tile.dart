@@ -4,18 +4,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../common/app_colors.dart';
-import 'recipe_detail_page.dart';
+import 'recipe_detail_page2.dart';
 
 class RecipeTile extends StatefulWidget {
   final RecipeModel data;
-  final Function() updateData;
-  final List<String> availableIngredients;
+  final List<String>? availableIngredients;
 
   const RecipeTile({
     super.key,
+    this.availableIngredients,
     required this.data,
-    required this.availableIngredients,
-    required this.updateData,
   });
 
   @override
@@ -28,6 +26,7 @@ class _RecipeTileState extends State<RecipeTile> {
   @override
   void initState() {
     print("DATA");
+    print('availableIngredients ${widget.availableIngredients}');
     if (widget.data.similarity != null) {
       setState(() {
         if (widget.data.similarity! > 0.5) {
@@ -47,8 +46,7 @@ class _RecipeTileState extends State<RecipeTile> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => RecipeDetailPage(
-                  updateData: widget.updateData,
+            builder: (context) => RecipeDetailPage2(
                   data: widget.data,
                   availableIngredients: widget.availableIngredients,
                 )));
@@ -141,24 +139,47 @@ class _RecipeTileState extends State<RecipeTile> {
                       ),
                     ),
                   ),
-                  if (widget.data.similarity != null)
-                    SizedBox(
-                      height: 60,
-                      width: 60,
-                      child: CircularPercentIndicator(
-                        radius: 30.0,
-                        lineWidth: 5.0,
-                        animation: true,
-                        percent: widget.data.similarity ?? 0,
-                        center: Text(
-                          (widget.data.similarity! * 100).toStringAsFixed(1),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 10.0),
-                        ),
-                        circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: percentColor,
-                      ),
-                    )
+                  widget.data.similarity != null
+                      ? SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: CircularPercentIndicator(
+                            radius: 30.0,
+                            lineWidth: 5.0,
+                            animation: true,
+                            percent: widget.data.similarity ?? 0,
+                            center: Text(
+                              (widget.data.similarity! * 100)
+                                  .toStringAsFixed(1),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 10.0),
+                            ),
+                            circularStrokeCap: CircularStrokeCap.round,
+                            progressColor: percentColor,
+                          ),
+                        )
+                      : Stack(
+                          children: [
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                              size: 50,
+                            ),
+                            Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              child: Center(
+                                child: Text(
+                                  widget.data.likes.length.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
                 ],
               ),
             ],

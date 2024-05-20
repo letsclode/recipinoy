@@ -207,6 +207,7 @@ class _AdminRecipeDetailsState extends State<AdminRecipeDetails>
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return IngridientTile(
+                        userIngredients: [],
                         data: widget.data.sliceIngre![index],
                       );
                     },

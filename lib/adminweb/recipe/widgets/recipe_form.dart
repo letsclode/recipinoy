@@ -1,6 +1,5 @@
 // Create a Form widget.
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:flavorsph/adminweb/providers/image/image_provider.dart';
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 import 'package:flutter/material.dart';
@@ -42,34 +41,6 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
     });
   }
 
-  final dio = Dio();
-
-  Future<List<dynamic>> sendPostRequest() async {
-    try {
-      var data = {"values": ingredients};
-
-      // final body = jsonEncode(data); // Encode data as JSON
-
-      var response = await dio.post(
-          'https://cloderaldo.pythonanywhere.com/api/modify_array',
-          data: data);
-
-      print('RESPONSE : ${response.statusCode}');
-      // print('RESPONSE : ${response.}');
-
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        final json = (response.data as Map<String, dynamic>);
-
-        print(json['message']);
-
-        return json['message'] as List<dynamic>;
-      }
-    } catch (e) {
-      print(e);
-    }
-    return [];
-  }
-
   Future save({String? recipeId}) async {
     setState(() {
       loader = true;
@@ -77,12 +48,12 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
 
     try {
       var uuid = Uuid();
-      List<dynamic> filteredIngredients = [];
+      // List<dynamic> filteredIngredients = [];
 
-      filteredIngredients = await sendPostRequest();
+      // filteredIngredients = await sendPostRequest();
 
-      print('filteredIngredients');
-      print(filteredIngredients);
+      // print('filteredIngredients');
+      // print(filteredIngredients);
 
       final image = ref.read(imageProvider).globalImage;
 
@@ -106,7 +77,6 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
           title: titleTXController.text,
           time: timeTXController.text,
           sliceIngre: ingredients,
-          ingredients: filteredIngredients,
           sliceIns: steps);
 
       print(newRecipe);
@@ -132,8 +102,8 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
     if (widget.editableRecipe != null) {
       timeTXController.text = widget.editableRecipe!.time!;
       titleTXController.text = widget.editableRecipe!.title!;
-      steps = [...widget.editableRecipe!.sliceIns!] ?? [];
-      ingredients = [...widget.editableRecipe!.sliceIngre!] ?? [];
+      steps = [...widget.editableRecipe!.sliceIns!];
+      ingredients = [...widget.editableRecipe!.sliceIngre!];
     }
     super.initState();
   }
@@ -292,7 +262,7 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                                   child: TextFormField(
                                     controller: inputIngreController,
                                     decoration: InputDecoration(
-                                      hintText: "Ingredients as a sentence",
+                                      hintText: "Ingredients",
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                               vertical: 2.0, horizontal: 10.0),
@@ -317,10 +287,28 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                               padding: EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 20),
                               child: ListView(
-                                children: ingredients
-                                    .map((e) => Text(
-                                        "${ingredients.indexOf(e) + 1}. $e"))
-                                    .toList(),
+                                children: ingredients.map((e) {
+                                  TextEditingController controller =
+                                      TextEditingController();
+
+                                  controller.text = e;
+
+                                  return TextField(
+                                    decoration: InputDecoration(
+                                        suffixIcon: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                ingredients.remove(e);
+                                              });
+                                            },
+                                            icon: Icon(Icons.close))),
+                                    onChanged: (text) {
+                                      ingredients[ingredients.indexOf(e)] =
+                                          text;
+                                    },
+                                    controller: controller,
+                                  );
+                                }).toList(),
                               ))
                         ],
                       ),
@@ -329,7 +317,7 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10, top: 20),
                     child: Text(
-                      "Steps",
+                      "Instructions",
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -355,7 +343,7 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                                   child: TextFormField(
                                     controller: inputStepController,
                                     decoration: InputDecoration(
-                                      hintText: "Steps #",
+                                      hintText: "Instructions #",
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                               vertical: 2.0, horizontal: 10.0),
@@ -377,10 +365,27 @@ class _MyCustomFormState extends ConsumerState<MyCustomForm> {
                               padding: EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 20),
                               child: ListView(
-                                children: steps
-                                    .map((e) =>
-                                        Text("${steps.indexOf(e) + 1}. $e"))
-                                    .toList(),
+                                children: steps.map((e) {
+                                  TextEditingController controller =
+                                      TextEditingController();
+
+                                  controller.text = e;
+
+                                  return TextField(
+                                    decoration: InputDecoration(
+                                        suffixIcon: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                steps.remove(e);
+                                              });
+                                            },
+                                            icon: Icon(Icons.close))),
+                                    onChanged: (text) {
+                                      steps[steps.indexOf(e)] = text;
+                                    },
+                                    controller: controller,
+                                  );
+                                }).toList(),
                               ))
                         ],
                       ),

@@ -21,7 +21,8 @@ IngredientModel _$IngredientModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$IngredientModel {
   String get title => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get createdBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $IngredientModelCopyWith<$Res> {
           IngredientModel value, $Res Function(IngredientModel) then) =
       _$IngredientModelCopyWithImpl<$Res, IngredientModel>;
   @useResult
-  $Res call({String title, String image});
+  $Res call({String title, String? id, String? createdBy});
 }
 
 /// @nodoc
@@ -52,17 +53,22 @@ class _$IngredientModelCopyWithImpl<$Res, $Val extends IngredientModel>
   @override
   $Res call({
     Object? title = null,
-    Object? image = null,
+    Object? id = freezed,
+    Object? createdBy = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdBy: freezed == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -75,7 +81,7 @@ abstract class _$$IngredientModelImplCopyWith<$Res>
       __$$IngredientModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String image});
+  $Res call({String title, String? id, String? createdBy});
 }
 
 /// @nodoc
@@ -90,17 +96,22 @@ class __$$IngredientModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
-    Object? image = null,
+    Object? id = freezed,
+    Object? createdBy = freezed,
   }) {
     return _then(_$IngredientModelImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdBy: freezed == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -108,7 +119,7 @@ class __$$IngredientModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$IngredientModelImpl implements _IngredientModel {
-  const _$IngredientModelImpl({required this.title, required this.image});
+  const _$IngredientModelImpl({required this.title, this.id, this.createdBy});
 
   factory _$IngredientModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$IngredientModelImplFromJson(json);
@@ -116,11 +127,13 @@ class _$IngredientModelImpl implements _IngredientModel {
   @override
   final String title;
   @override
-  final String image;
+  final String? id;
+  @override
+  final String? createdBy;
 
   @override
   String toString() {
-    return 'IngredientModel(title: $title, image: $image)';
+    return 'IngredientModel(title: $title, id: $id, createdBy: $createdBy)';
   }
 
   @override
@@ -129,12 +142,14 @@ class _$IngredientModelImpl implements _IngredientModel {
         (other.runtimeType == runtimeType &&
             other is _$IngredientModelImpl &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.createdBy, createdBy) ||
+                other.createdBy == createdBy));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, image);
+  int get hashCode => Object.hash(runtimeType, title, id, createdBy);
 
   @JsonKey(ignore: true)
   @override
@@ -154,7 +169,8 @@ class _$IngredientModelImpl implements _IngredientModel {
 abstract class _IngredientModel implements IngredientModel {
   const factory _IngredientModel(
       {required final String title,
-      required final String image}) = _$IngredientModelImpl;
+      final String? id,
+      final String? createdBy}) = _$IngredientModelImpl;
 
   factory _IngredientModel.fromJson(Map<String, dynamic> json) =
       _$IngredientModelImpl.fromJson;
@@ -162,7 +178,9 @@ abstract class _IngredientModel implements IngredientModel {
   @override
   String get title;
   @override
-  String get image;
+  String? get id;
+  @override
+  String? get createdBy;
   @override
   @JsonKey(ignore: true)
   _$$IngredientModelImplCopyWith<_$IngredientModelImpl> get copyWith =>

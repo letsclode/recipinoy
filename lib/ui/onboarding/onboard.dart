@@ -1,3 +1,4 @@
+import 'package:flavorsph/constant/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/utils.dart';
@@ -26,7 +27,7 @@ class OnBoarding extends StatelessWidget {
         headerBackgroundColor: Colors.white,
         finishButtonText: 'Register',
         finishButtonStyle: FinishButtonStyle(
-          backgroundColor: Colors.green,
+          backgroundColor: color1,
         ),
         skipTextButton: Text('Skip'),
         centerBackground: true,

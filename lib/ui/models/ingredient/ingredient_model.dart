@@ -8,7 +8,8 @@ part 'ingredient_model.g.dart';
 class IngredientModel with _$IngredientModel {
   const factory IngredientModel({
     required String title,
-    required String image,
+    String? id,
+    String? createdBy,
   }) = _IngredientModel;
 
   factory IngredientModel.fromJson(Map<String, Object?> json) =>

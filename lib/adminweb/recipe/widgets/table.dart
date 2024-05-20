@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flavorsph/adminweb/color.dart';
-import 'package:flavorsph/adminweb/dashboard/recipe/admin_recipe_details.dart';
-import 'package:flavorsph/adminweb/dashboard/widgets/recipe_form.dart';
+import 'package:flavorsph/adminweb/recipe/recipe/admin_recipe_details.dart';
+import 'package:flavorsph/adminweb/recipe/widgets/recipe_form.dart';
 import 'package:flavorsph/ui/models/recipe/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

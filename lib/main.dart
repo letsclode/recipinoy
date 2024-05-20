@@ -4,6 +4,7 @@ import 'package:flavorsph/app/app.bottomsheets.dart';
 import 'package:flavorsph/app/app.dialogs.dart';
 import 'package:flavorsph/app/app.locator.dart';
 import 'package:flavorsph/app/app.router.dart';
+import 'package:flavorsph/constant/color.dart';
 import 'package:flavorsph/ui/feedback/custom_feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -35,8 +36,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Recipinoy',
-      theme:
-          ThemeData(colorSchemeSeed: const Color.fromARGB(255, 15, 150, 132)),
+      theme: ThemeData(
+          useMaterial3: false,
+          canvasColor: color1,
+          colorSchemeSeed: color1,
+          bottomNavigationBarTheme:
+              BottomNavigationBarThemeData(backgroundColor: color1)),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,

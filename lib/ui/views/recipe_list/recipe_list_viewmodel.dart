@@ -6,27 +6,38 @@ import '../../../app/app.locator.dart';
 import '../../../services/recipe_generator_service.dart';
 
 class RecipeListViewModel extends BaseViewModel {
-  // final FirestoreService _firestoreService = locator<FirestoreService>();
-
   TextEditingController searchInputController = TextEditingController();
 
   final _recipeGeneratorService = locator<RecipeGeneratorService>();
 
-  late List<RecipeModel> _recipes;
+  List<RecipeModel> _recipes = [];
+  List<RecipeModel> _suggested = [];
   List<RecipeModel> get recipes => _recipes;
 
-  Future<List<RecipeModel>> generateRecipe(
+  List<RecipeModel> get suggested => _suggested;
+
+  Future<void> generateRecipe({required List<String> ingredients}) async {
+    print('INPUT : $ingredients');
+    _recipes =
+        await _recipeGeneratorService.generate(inputIngredients: ingredients);
+
+    notifyListeners();
+  }
+
+  Future<void> generateSuggestedRecipe(
       {required List<String> ingredients}) async {
     print('INPUT : $ingredients');
-    return await _recipeGeneratorService.generate(
+    _suggested = await _recipeGeneratorService.generateSuggested(
         inputIngredients: ingredients);
-  }
 
-  Future<List<RecipeModel>> recipe() async {
-    return await _recipeGeneratorService.fetchSavedRecipes();
-  }
-
-  void updateData() {
     notifyListeners();
+  }
+
+  Future<List<RecipeModel>> getRecipe() async {
+    return _recipes;
+  }
+
+  Future<List<RecipeModel>> getSuggested() async {
+    return _suggested;
   }
 }

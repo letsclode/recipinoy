@@ -1,4 +1,4 @@
-import 'package:flavorsph/adminweb/dashboard/recipe_page.dart';
+import 'package:flavorsph/adminweb/recipe/recipe_page.dart';
 import 'package:flutter/material.dart';
 
 import '../responsive.dart';

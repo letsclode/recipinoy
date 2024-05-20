@@ -10,12 +10,14 @@ _$IngredientModelImpl _$$IngredientModelImplFromJson(
         Map<String, dynamic> json) =>
     _$IngredientModelImpl(
       title: json['title'] as String,
-      image: json['image'] as String,
+      id: json['id'] as String?,
+      createdBy: json['createdBy'] as String?,
     );
 
 Map<String, dynamic> _$$IngredientModelImplToJson(
         _$IngredientModelImpl instance) =>
     <String, dynamic>{
       'title': instance.title,
-      'image': instance.image,
+      'id': instance.id,
+      'createdBy': instance.createdBy,
     };

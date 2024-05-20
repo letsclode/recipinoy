@@ -34,22 +34,20 @@ class FirestoreService {
     return [];
   }
 
-  Future<List<RecipeModel>> savedRecipe() async {
+  Future<List<RecipeModel>> getFavorites({required String userId}) async {
     try {
-      var recipeDocuments = await _recipesCollectionReference.get();
+      var recipeDocuments = await _recipesCollectionReference
+          .where('likes', arrayContains: userId)
+          .get();
       if (recipeDocuments.docs.isNotEmpty) {
         var data = recipeDocuments.docs
-            .map((snapshot) {
-              print(("ID SNAPSHOT"));
-              print(snapshot.id);
-              return RecipeModel.fromJson(
-                      snapshot.data() as Map<String, Object?>)
-                  .copyWith(id: snapshot.id);
-            })
+            .map((snapshot) =>
+                RecipeModel.fromJson(snapshot.data() as Map<String, Object?>)
+                    .copyWith(id: snapshot.id))
             .where((mappedItem) => mappedItem.title != null)
-            .where((element) => element.isSave)
             .toList();
-
+        print('RECIPE DATA');
+        print(data.length);
         return data;
       }
     } catch (e) {
