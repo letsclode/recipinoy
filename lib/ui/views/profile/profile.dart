@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flavorsph/adminweb/controllers/auth_controller.dart';
 import 'package:flavorsph/adminweb/controllers/user_controller.dart';
 import 'package:flavorsph/constant/color.dart';
+import 'package:flavorsph/provider/user_provider.dart';
 import 'package:flavorsph/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../adminweb/providers/image/image_provider.dart';
 import '../../widgets/title_button.dart';
 
 class Profile extends ConsumerStatefulWidget {
@@ -129,6 +132,32 @@ class _ProfileState extends ConsumerState<Profile> {
                 hintText: "Email"),
           ),
           verticalSpaceSmall,
+          TextButton(
+              onPressed: () {
+                BetterFeedback.of(context).show((feedback) async {
+                  // draft an email and send to developer
+
+                  // final url = imageUp
+                  //TODO: upload image
+
+                  final user = ref.read(authControllerProvider);
+
+                  final url = await ref
+                      .read(imageProvider)
+                      .uploadImageToStorage(
+                          recipeId: user!.email!, image: feedback.screenshot);
+
+                  await FirebaseFirestore.instance.collection('feedbacks').add({
+                    "screenshot": url,
+                    "text": feedback.text,
+                    "user": user.email!
+                  }).then((value) =>
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Feedback sent."),
+                      )));
+                });
+              },
+              child: Text("Send Feedback")),
           Container(
             width: double.infinity,
             child: Consumer(builder: (context, ref, child) {
@@ -148,7 +177,7 @@ class _ProfileState extends ConsumerState<Profile> {
                 ),
               );
             }),
-          )
+          ),
         ],
       ),
     );
