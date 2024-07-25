@@ -1,3 +1,6 @@
 # Recipinoy
-
-A new Flutter project.
+Stack
+- Flutter
+- Firebase firestore
+- Firebase Authentication
+- Python scripting recipe
